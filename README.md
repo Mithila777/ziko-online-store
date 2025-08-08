@@ -3,34 +3,41 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 ## Getting Started
 
 First, run the development server:
+Next.js Fullstack Online Electronics Shop
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+##Project Overview
+This is a full-stack eCommerce web application for an online electronics store built using Next.js 14 (App Router). It allows users to browse products, manage a shopping cart, place orders, and make payments securely via Stripe Checkout. The site includes an Admin Dashboard to manage products and orders.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+##Tech Stack
+Frontend: Next.js (App Router), Tailwind CSS, React Hooks, Client Components
+Backend: Next.js API Routes, Prisma ORM
+Authentication: NextAuth.js (with Email or OAuth options)
+Database: PostgreSQL
+Payments: Stripe
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+##State Management: React Context API (for Cart)
+Deployment: Vercel (Frontend & API) + (PostgreSQL)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+##Features
+🛍️ Customer Side
+View all electronic products (e.g., phones, laptops, accessories)
+Filter and search products (optional)
+Add products to cart
+Choose Pay Now (Stripe) or Cash on Delivery
+View order confirmation after checkout
 
-## Learn More
+👨‍💼 Admin Dashboard
+Secure login with Admin role
+Add new products (with name, image, price, description)
+Update or delete existing products
+View all orders placed by users
 
-To learn more about Next.js, take a look at the following resources:
+🔐 Authentication
+Users must sign in to place an order
+Role-based access (Admin vs User)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
-## Deploy on Vercel
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
