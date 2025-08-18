@@ -7,6 +7,12 @@ import Navbar from "@/components/Navbar";
 import { SessionProvider } from "next-auth/react";
 import { CartProvider } from "@/context/CartContext"; // ✅ IMPORT THIS
 import Footer from "@/components/Footer";
+import { Roboto } from 'next/font/google';
+
+const roboto = Roboto({
+  weight: ['400', '700'], // optional weights
+  subsets: ['latin'],      // optional subsets
+});
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -25,7 +31,7 @@ const geistMono = Geist_Mono({
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="en" className={roboto.className}>
        <link
           rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"

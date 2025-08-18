@@ -3,18 +3,23 @@ import prisma from "@/lib/prisma";
 
 export async function GET(
   _: Request,
-  { params }: { params: { productId: string } }
+  context: { params: Promise<{ productId: string }> } // 👈 params is a Promise
 ) {
   try {
+    const { productId } = await context.params; // 👈 must await
+
     const reviews = await prisma.review.findMany({
-      where: { productId: params.productId },
+      where: { productId },
       include: { user: true },
-      orderBy: { createdAt: "desc" }
+      orderBy: { createdAt: "desc" },
     });
 
     return NextResponse.json(reviews);
   } catch (error) {
-    console.error(error);
-    return NextResponse.json({ error: "Failed to fetch reviews" }, { status: 500 });
+    console.error("Error fetching reviews:", error);
+    return NextResponse.json(
+      { error: "Failed to fetch reviews" },
+      { status: 500 }
+    );
   }
 }

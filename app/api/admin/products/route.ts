@@ -4,42 +4,39 @@ import prisma from "@/lib/prisma";
 // GET all products
 export async function GET() {
   try {
-    const products = await prisma.product.findMany({
-      orderBy: { createdAt: "desc" },
-    });
+    const products = await prisma.product.findMany({ orderBy: { createdAt: "desc" } });
     return NextResponse.json(products);
   } catch (error) {
-    console.error(error);
     return NextResponse.json({ error: "Failed to fetch products" }, { status: 500 });
   }
 }
 
-// DELETE product
-export async function DELETE(req: Request) {
+// POST add new product
+export async function POST(req: Request) {
   try {
-    const { productId } = await req.json();
-    await prisma.product.delete({ where: { id: productId } });
-    return NextResponse.json({ message: "Product deleted" });
-  } catch (error) {
-    console.error(error);
-    return NextResponse.json({ error: "Failed to delete product" }, { status: 500 });
-  }
-}
+    const body = await req.json();
+    const { name, image, description, price, quantity, category, brand, Model, discount } = body;
 
-// PATCH: update product
-export async function PATCH(req: Request) {
-  try {
-    const { id, name, price, quantity, category, brand, Model, discount, image, description } =
-      await req.json();
+    if (!name || !description || !price || !quantity) {
+      return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
+    }
 
-    const updatedProduct = await prisma.product.update({
-      where: { id },
-      data: { name, price, quantity, category, brand, Model, discount, image, description },
+    const product = await prisma.product.create({
+      data: {
+        name,
+        image,
+        description,
+        price: Number(price),
+        quantity: Number(quantity),
+        category,
+        brand,
+        Model,
+        discount: discount ? Number(discount) : null,
+      },
     });
 
-    return NextResponse.json(updatedProduct);
+    return NextResponse.json(product);
   } catch (error) {
-    console.error(error);
-    return NextResponse.json({ error: "Failed to update product" }, { status: 500 });
+    return NextResponse.json({ error: "Failed to add product" }, { status: 500 });
   }
 }

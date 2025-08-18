@@ -2,22 +2,23 @@
 
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from "react-responsive-carousel";
-import Hero from "@/components/Hero";
-import FeaturedCatagories from "@/components/home/FeaturedCatagories";
-import FeaturedItems from "@/components/home/FeaturedItems";
-import TopSellingProducts from "@/components/home/TopSellingProducts";
-import TopDell from "@/components/home/TopDell";
+import ServiceSection from "@/components/home/ServiceSection";
+import TopDellSection from "@/components/home/TopDellSection";
+import TopSellSection from "@/components/home/TopSellSection";
+import BlogSection from "@/components/home/BlogSection";
+import FeaturedSection from "@/components/home/FeaturedSection";
+import HeroSection from "@/components/home/HeroSection";
 
 export default function Home() {
   return (
-    <div>
-    <div className="grid grid-cols-1 md:grid-cols-6 bg-fixed">
+    <div className="">
+    <div className="grid grid-cols-1 md:grid-cols-6 bg-fixed  bg-gray-50">
       
       {/* Left Column */}
-      <div className="md:col-span-4 bg-gray-100">
+      <div className="md:col-span-4 ">
         <Carousel autoPlay infiniteLoop showThumbs={false}>
           <div>
-            <Hero
+            <HeroSection
               title="BEST DEAL !"
               description="BEST WATCH"
               image="image/hero/watch.png"
@@ -25,15 +26,15 @@ export default function Home() {
           </div>
 
           <div>
-            <Hero
+            <HeroSection
               title="BEST DEAL !"
               description=" TOP PHONE"
-              image="image/products/iphone13.png"
+              image="image/hero/phone.png"
             />
           </div>
 
           <div>
-            <Hero
+            <HeroSection
               title="BEST DEAL !"
               description="TOP HEADPHONE"
               image="image/hero/headphone.png"
@@ -57,11 +58,11 @@ export default function Home() {
         </div>
 
     </div>
-
-     <FeaturedCatagories/>
-     <FeaturedItems/>
-     <TopDell/>
-      <TopSellingProducts/> 
+    <ServiceSection/>
+     <FeaturedSection/>
+     <TopDellSection/>
+      <TopSellSection/> 
+      <BlogSection/>
 
     </div>
   );
