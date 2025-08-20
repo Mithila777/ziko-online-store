@@ -13,8 +13,8 @@ export async function GET(req: Request, { params }: { params: { id: string } }) 
   }
 }
 
-export async function PUT(req: Request, context: { params: { id: string } }) {
-  const { id } = context.params;
+export async function PUT(req: Request, { params }: { params: { id: string } }) {
+  const { id } = params;
 
   try {
     const body = await req.json();
@@ -41,8 +41,8 @@ export async function PUT(req: Request, context: { params: { id: string } }) {
   }
 }
 
-export async function DELETE(req: Request, context: { params: { id: string } }) {
-  const { id } = context.params;
+export async function DELETE(req: Request, { params }: { params: { id: string } }) {
+  const { id } = params;
 
   try {
     await prisma.product.delete({ where: { id } });

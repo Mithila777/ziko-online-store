@@ -10,8 +10,8 @@ export async function GET(req: Request, { params }: { params: { id: string } }) 
   return NextResponse.json(product);
 }
 
-export async function PUT(req: Request, context: { params: Promise<{ id: string }> }) {
-  const { id } = await context.params;
+export async function PUT(req: Request, { params }: { params: { id: string } }) {
+  const { id } = params;
   const body = await req.json();
   const { name, description, price, image, quantity, category, brand, Model, discount } = body;
 
@@ -25,8 +25,8 @@ export async function PUT(req: Request, context: { params: Promise<{ id: string 
 
 
 
-export async function DELETE(_: Request, context: { params: Promise<{ id: string }> }) {
-  const { id } = await context.params; // ✅ await params
+export async function DELETE(req: Request, { params }: { params: { id: string } }) {
+  const { id } = params;
   await prisma.product.delete({
     where: { id },
   });
