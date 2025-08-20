@@ -8,7 +8,8 @@ type Params = {
   };
 };
 
-export async function PUT(req: Request, { params }: Params) {  try {
+export async function PUT(req: Request, { params }: Params) { 
+   try {
     const data = await req.json();
 
     const updatedOrder = await prisma.order.update({
