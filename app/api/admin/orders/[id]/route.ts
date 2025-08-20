@@ -1,12 +1,9 @@
 import { NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
 
-export async function DELETE(
-  req: Request,
-  { params }: { params: { id: string } }
-): Promise<Response> {
+export async function DELETE(req: Request, context: any) {
   try {
-    const { id } = params;
+    const { id } = context.params; // context always has params
 
     await prisma.$transaction([
       prisma.orderItem.deleteMany({ where: { orderId: id } }),
