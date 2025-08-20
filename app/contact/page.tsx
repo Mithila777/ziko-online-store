@@ -45,33 +45,30 @@ export default function ContactPage() {
         Contact Us
       </h1>
 
-      <div className="grid md:grid-cols-2 gap-12">
+      <div className="grid md:grid-cols-5 gap-12">
         {/* Contact Info */}
-        <div className="space-y-6">
-          <div className="flex items-start gap-4 bg-indigo-50 p-6 rounded-xl shadow hover:shadow-lg transition">
-            <FaEnvelope className="text-indigo-600 text-3xl mt-1" />
-            <div>
-              <h3 className="text-lg font-semibold text-gray-700">Email</h3>
-              <p className="text-gray-600">support@example.com</p>
-            </div>
-          </div>
-          <div className="flex items-start gap-4 bg-green-50 p-6 rounded-xl shadow hover:shadow-lg transition">
-            <FaPhone className="text-green-600 text-3xl mt-1" />
-            <div>
+        <div className="space-y-6 md:col-span-2">
+         <div className="text-center p-6  bg-white shadow hover:shadow-md transition grid place-items-center space-y-2">
+            <FaEnvelope className="text-blue-800 text-3xl" />
+           <h3 className="text-lg font-semibold text-gray-700">Email</h3>
+            <p className="text-gray-600">ziko@gmail.com</p>
+        </div>
+
+         <div className="text-center p-6  bg-white shadow hover:shadow-md transition grid place-items-center space-y-2">
+            <FaPhone className="text-blue-800 text-3xl mt-1" />
               <h3 className="text-lg font-semibold text-gray-700">Phone</h3>
-              <p className="text-gray-600">+1 234 567 890</p>
-            </div>
+             <p className="text-gray-600">+880 234 567 890</p>         
           </div>
-          <div className="flex items-start gap-4 bg-yellow-50 p-6 rounded-xl shadow hover:shadow-lg transition">
-            <FaMapMarkerAlt className="text-yellow-600 text-3xl mt-1" />
-            <div>
+
+         <div className="text-center p-6  bg-white shadow hover:shadow-md transition grid place-items-center space-y-2">
+            <FaMapMarkerAlt className="text-blue-800 text-3xl mt-1" />
               <h3 className="text-lg font-semibold text-gray-700">Address</h3>
-              <p className="text-gray-600">123 Main St, City, Country</p>
-            </div>
+              <p className="text-gray-600"> Dhaka, Bangladesh</p>
           </div>
         </div>
 
         {/* Contact Form */}
+        <div className="md:col-span-3">
         <form
           onSubmit={handleSubmit}
           className="bg-white p-8 rounded-xl shadow-lg space-y-6"
@@ -115,12 +112,13 @@ export default function ContactPage() {
           <button
             type="submit"
             disabled={submitting}
-            className="w-full bg-indigo-600 text-white font-semibold py-3 rounded-lg hover:bg-indigo-700 transition flex justify-center items-center gap-2"
+            className="w-full bg-blue-800 text-white font-semibold py-3 rounded-lg hover:bg-blue-600 transition flex justify-center items-center gap-2"
           >
             {submitting ? "Sending..." : "Send Message"}
           </button>
           {status && <p className="text-center text-gray-700 mt-2">{status}</p>}
         </form>
+        </div>
       </div>
     </div>
   );

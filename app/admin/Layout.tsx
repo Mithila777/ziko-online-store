@@ -6,6 +6,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { signOut } from "next-auth/react";
 import { FaTachometerAlt, FaUser, FaBoxOpen, FaPlus, FaShoppingCart, FaBlog } from "react-icons/fa";
 import { FiLogOut } from "react-icons/fi";
+import { FaMessage } from "react-icons/fa6";
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   const [isOpen, setIsOpen] = useState(false); // mobile drawer
@@ -20,6 +21,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     { label: "Add Product", href: "/admin/products/add", icon: <FaPlus /> },
     { label: "Orders", href: "/admin/orders", icon: <FaShoppingCart /> },
     { label: "Blogs", href: "/admin/blogs", icon: <FaBlog /> },
+
   ];
 
   const handleLogout = async () => {
@@ -49,11 +51,12 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           <div className="flex items-center justify-between p-4 border-b">
             {!isCollapsed && (
               <div className="flex items-center gap-3">
-                <img
+                {/* <img
                   src="/image/admin-avatar.png"
                   alt="Admin Avatar"
                   className="w-10 h-10 rounded-full border-2 border-blue-600"
-                />
+                /> */}
+                <FaUser  className="w-10 h-10 rounded-full border-2 border-black"/>
                 <h1 className="font-bold text-lg text-gray-800">Admin</h1>
               </div>
             )}
@@ -76,8 +79,8 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
               <Link
                 key={link.href}
                 href={link.href}
-                className={`flex items-center gap-3 px-4 py-2 rounded-md transition 
-                  ${pathname === link.href ? " text-blue-800 font-medium" : "text-gray-700 hover:bg-gray-200"}`}
+                className={`flex items-center gap-3 px-4 py-2  transition 
+                  ${pathname === link.href ? " text-white bg-blue-800 font-medium" : "text-gray-600 hover:bg-blue-800 hover:text-white"}`}
                 onClick={() => setIsOpen(false)}
               >
                 <span className="text-lg">{link.icon}</span>

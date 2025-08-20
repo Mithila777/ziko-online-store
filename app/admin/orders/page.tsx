@@ -11,7 +11,7 @@ type Order = {
   totalCost?: number;
   user?: { name: string };
   items: {
-    product: { name: string; price: number };
+    product: { id: string; name: string; price: number; quantity: number };
     quantity: number;
   }[];
 };
@@ -53,15 +53,30 @@ export default function OrdersPage() {
     }
   };
 
+  const deleteOrder = async (orderId: string) => {
+    if (!confirm("Are you sure you want to cancel this order?")) return;
+
+    try {
+      await fetch(`/api/admin/orders/${orderId}`, {
+        method: "DELETE",
+      });
+      fetchOrders();
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   return (
     <AdminLayout>
-      <h1 className="text-2xl font-bold mb-4">Orders</h1>
+      <h1 className="text-3xl font-bold mb-6 text-gray-800">Manage Orders</h1>
 
       {loading ? (
         <p>Loading orders...</p>
+      ) : orders.length === 0 ? (
+        <p>No orders found.</p>
       ) : (
-        <div className="overflow-x-auto bg-white rounded shadow">
-          <table className="min-w-full divide-y divide-gray-200">
+        <div className="overflow-x-auto">
+          <table className="min-w-full bg-white divide-y divide-gray-200 shadow rounded-lg">
             <thead className="bg-gray-50">
               <tr>
                 <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">
@@ -82,6 +97,9 @@ export default function OrdersPage() {
                 <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">
                   Delivery Status
                 </th>
+                <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">
+                  Action
+                </th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-200">
@@ -92,17 +110,18 @@ export default function OrdersPage() {
                 );
 
                 return (
-                  <tr key={order.id}>
+                  <tr key={order.id} className="hover:bg-gray-50">
                     <td className="px-4 py-2">{order.id}</td>
                     <td className="px-4 py-2">{order.user?.name || "Guest"}</td>
                     <td className="px-4 py-2">
                       {order.items.map((item, idx) => (
-                        <div key={idx}>
-                          {item.product.name} x {item.quantity}
+                        <div key={idx} className="flex justify-between">
+                          <span>{item.product.name} x {item.quantity}</span>
+                          <span>${item.product.price}</span>
                         </div>
                       ))}
                     </td>
-                    <td className="px-4 py-2">{total}</td>
+                    <td className="px-4 py-2 font-semibold">${total}</td>
                     <td className="px-4 py-2">
                       <select
                         value={order.paymentStatus}
@@ -128,6 +147,14 @@ export default function OrdersPage() {
                         <option value="Shipped">Shipped</option>
                         <option value="Delivered">Delivered</option>
                       </select>
+                    </td>
+                    <td className="px-4 py-2">
+                      <button
+                        onClick={() => deleteOrder(order.id)}
+                        className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600"
+                      >
+                        Cancel
+                      </button>
                     </td>
                   </tr>
                 );

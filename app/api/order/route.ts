@@ -16,13 +16,20 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
 
-  // 1️⃣ Create the order
+  // ✅ Calculate total cost
+  const totalCost = items.reduce(
+    (sum: number, item: any) => sum + item.price * item.quantity,
+    0
+  );
+
+  // 1️⃣ Create order in DB
   const order = await prisma.order.create({
     data: {
       userId: sessionUser.user.id,
       paymentMethod,
-      paymentStatus: paymentMethod === 'stripe' ? 'paid' : 'pending',
-      dailybariStatus: 'Panding', // initial status
+      paymentStatus: paymentMethod === 'cod' ? 'unpaid' : 'pending',
+      dailybariStatus: paymentMethod === 'cod' ? 'Confirmed' : 'Pending',
+      totalCost,
       items: {
         create: items.map((item: any) => ({
           productId: item.id,
@@ -30,13 +37,11 @@ export async function POST(req: Request) {
         })),
       },
     },
-    include: {
-      items: true, // include items to update stock later
-    },
+    include: { items: true },
   });
 
-  // 2️⃣ If payment is COD or already paid, decrease stock immediately
-  if (paymentMethod !== 'stripe' || order.paymentStatus === 'paid') {
+  // 2️⃣ If COD → decrement stock immediately
+  if (paymentMethod === 'cod') {
     await prisma.$transaction(
       order.items.map((item) =>
         prisma.product.update({
@@ -45,9 +50,11 @@ export async function POST(req: Request) {
         })
       )
     );
+
+    return NextResponse.json({ success: true, orderId: order.id });
   }
 
-  // 3️⃣ Stripe checkout session
+  // 3️⃣ If Stripe → create checkout session
   if (paymentMethod === 'stripe') {
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ['card'],
@@ -62,10 +69,11 @@ export async function POST(req: Request) {
       mode: 'payment',
       success_url: `${process.env.NEXT_PUBLIC_BASE_URL}/dashboard`,
       cancel_url: `${process.env.NEXT_PUBLIC_BASE_URL}/cart`,
+      metadata: { orderId: order.id }, // ✅ we’ll use this in webhook
     });
 
     return NextResponse.json({ url: session.url });
   }
 
-  return NextResponse.json({ success: true, orderId: order.id });
+  return NextResponse.json({ error: 'Invalid payment method' }, { status: 400 });
 }

@@ -12,7 +12,7 @@ type OrderItem = {
     id: string;
     name: string;
     price?: number;
-    image?: string; // filename only
+    image?: string;
   };
 };
 
@@ -30,7 +30,7 @@ export default function OrdersPage() {
   const [orders, setOrders] = useState<Order[]>([]);
   const [loading, setLoading] = useState(true);
   const router = useRouter();
- console.log(orders)
+
   useEffect(() => {
     if (status !== "authenticated") return;
 
@@ -72,83 +72,150 @@ export default function OrdersPage() {
         return "bg-gray-100 text-gray-800";
     }
   };
-    
+
   return (
     <UserLayout>
-    <div className="max-w-5xl mx-auto mt-10">
-      <h1 className="text-3xl font-bold text-gray-800 mb-6">Your Orders</h1>
+      <div className="max-w-5xl mx-auto mt-10 space-y-12">
+        <h1 className="text-3xl font-bold text-gray-800 mb-6">Your Orders</h1>
 
-      <div className="space-y-6">
-        {orders.map((order) => (
-          <div
-            key={order.id}
-            className="bg-white shadow-lg rounded-xl p-6 hover:shadow-xl transition"
-          >
-            <div className="flex justify-between items-center mb-4">
-              <h2 className="text-xl font-semibold text-gray-700">
-                Order #{order.id}
-              </h2>
-              <div className="flex items-center gap-2">
-                {order.createdAt && (
-                  <span className="text-gray-400 text-sm">
-                    {new Date(order.createdAt).toLocaleDateString()}
-                  </span>
-                )}
-                <span
-                  className={`px-3 py-1 rounded-full text-sm font-medium ${statusColor(
-                    order.dailybariStatus
-                  )}`}
-                >
-                  {order.dailybariStatus}
-                </span>
-              </div>
-            </div>
+        {orders.map((order) => {
+          const subtotal = order.totalAmount || 0;
+          const shipping = 10;
+          const grandTotal = subtotal + shipping;
 
-            <div className="border-t pt-4 space-y-2">
-              {order.items.map((item) => (
-                
-                <div
-                  key={item.id}
-                  className="flex items-center justify-between py-2"
-                >
-                  <div className="flex items-center gap-4">
-                    {item.product.image && (
-                       <img  src={`${item.product.image}`} // ✅ correct path
-                      alt={item.product.name}  className="w-32 h-32 object-cover rounded"  />
-                    )}
-                    <span className="text-gray-700">{item.product.name}</span>
+          return (
+            <div
+              key={order.id}
+              className=" shadow-sm overflow-hidden"
+            >
+              {/* Order Info */}
+              <div className="bg-gray-50 px-6 py-4 border-b">
+                <div className="flex flex-col md:flex-row md:items-center md:justify-between">
+                  <div>
+                    <p className="font-semibold text-gray-800">
+                      Order ID: <span className="text-gray-600">#{order.id}</span>
+                    </p>
+                    <p className="text-sm text-gray-500">
+                      Date:{" "}
+                      {order.createdAt
+                        ? new Date(order.createdAt).toLocaleDateString()
+                        : "-"}
+                    </p>
                   </div>
-                  <div className="flex items-center gap-4">
-                    <span className="text-gray-600">
-                      {item.quantity} × ${item.product.price?.toFixed(2) || "0.00"}
+                  <div className="flex flex-col md:flex-row md:items-center gap-4 mt-2 md:mt-0">
+                    {/* Delivery Status */}
+                    <span
+                      className={`px-3 py-1 rounded-full text-xs font-medium ${statusColor(
+                        order.dailybariStatus
+                      )}`}
+                    >
+                      Delivery: {order.dailybariStatus}
                     </span>
-
-                    {/* ✅ Show "Add Review" only for Delivered orders */}
-                    {order.dailybariStatus === "Delivered" && (
-                      <button
-                        onClick={() =>
-                          router.push(`/products/${item.product.id}/review`)
-                        }
-                        className="px-3 py-1 bg-blue-600 text-white rounded hover:bg-blue-700 transition"
-                      >
-                        Add Review
-                      </button>
-                    )}
+                    {/* Payment Status */}
+                    <span className="text-sm text-gray-700">
+                      Payment: {order.paymentStatus}
+                    </span>
                   </div>
                 </div>
-              ))}
-            </div>
+              </div>
 
-            <div className="flex justify-between mt-4 items-center text-gray-800 font-semibold">
-              <span>Payment: {order.paymentStatus}</span>
-              {order.totalAmount && (
-                <span>Total: ${order.totalAmount.toFixed(2)}</span>
-              )}
+              {/* Table */}
+              <div className="overflow-x-auto">
+                <table className="w-full text-sm text-left text-gray-600">
+                  <thead className="bg-blue-800 text-gray-50 uppercase text-sm">
+                    <tr>
+                      <th className="px-6 py-3">Product</th>
+                      <th className="px-6 py-3">Price</th>
+                      <th className="px-6 py-3">Quantity</th>
+                      <th className="px-6 py-3">Total</th>
+                      <th className="px-6 py-3">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {order.items.map((item) => (
+                      <tr
+                        key={item.id}
+                        className="bg-white border-b hover:bg-gray-50 transition"
+                      >
+                        {/* Product */}
+                        <td className="px-6 py-4 flex items-center gap-3">
+                          {item.product.image && (
+                            <img
+                              src={`${item.product.image}`}
+                              alt={item.product.name}
+                              className="w-14 h-14 object-cover rounded"
+                            />
+                          )}
+                          <span className="font-medium">
+                            {item.product.name}
+                          </span>
+                        </td>
+
+                        {/* Price */}
+                        <td className="px-6 py-4">
+                          ${item.product.price?.toFixed(2) || "0.00"}
+                        </td>
+
+                        {/* Quantity */}
+                        <td className="px-6 py-4">{item.quantity}</td>
+
+                        {/* Total */}
+                        <td className="px-6 py-4 font-semibold text-gray-800">
+                          $
+                          {(
+                            (item.product.price || 0) * item.quantity
+                          ).toFixed(2)}
+                        </td>
+
+                        {/* Add Review button */}
+                        <td className="px-6 py-4">
+                          {order.dailybariStatus === "Delivered" && (
+                            <button
+                              onClick={() =>
+                                router.push(`/products/${item.product.id}/review`)
+                              }
+                              className="px-3 py-1 text-xs bg-blue-600 text-white rounded hover:bg-blue-700 transition"
+                            >
+                              Add Review
+                            </button>
+                          )}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+
+                  {/* Footer */}
+                  <tfoot className="bg-gray-50 text-gray-700 font-medium">
+                    <tr>
+                      <td colSpan={3} className="px-6 py-3 text-right">
+                        Subtotal:
+                      </td>
+                      <td className="px-6 py-3">${subtotal.toFixed(2)}</td>
+                      <td></td>
+                    </tr>
+                    <tr>
+                      <td colSpan={3} className="px-6 py-3 text-right">
+                        Shipping:
+                      </td>
+                      <td className="px-6 py-3">${shipping.toFixed(2)}</td>
+                      <td></td>
+                    </tr>
+                    <tr>
+                      <td colSpan={3} className="px-6 py-3 text-right font-bold">
+                        Total:
+                      </td>
+                      <td className="px-6 py-3 font-bold text-gray-900">
+                        ${grandTotal.toFixed(2)}
+                      </td>
+                      <td></td>
+                    </tr>
+                  </tfoot>
+                </table>
+              </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
-    </div>
     </UserLayout>
   );
 }

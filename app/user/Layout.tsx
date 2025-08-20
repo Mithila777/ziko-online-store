@@ -46,11 +46,12 @@ export default function UserLayout({ children }: { children: React.ReactNode }) 
           <div className="flex items-center justify-between p-4 border-b">
             {!isCollapsed && (
               <div className="flex items-center gap-3">
-                <img
+                {/* <img
                   src="/image/user-avatar.png"
                   alt="User Avatar"
                   className="w-10 h-10 rounded-full border-2 border-blue-600"
-                />
+                /> */}
+                <FaUser className="w-10 h-10 rounded-full border-2 border-black"/>
                 <h1 className="font-bold text-lg text-gray-800">User</h1>
               </div>
             )}
@@ -73,8 +74,8 @@ export default function UserLayout({ children }: { children: React.ReactNode }) 
               <Link
                 key={link.href}
                 href={link.href}
-                className={`flex items-center gap-3 px-4 py-2 rounded-md transition 
-                  ${pathname === link.href ? "text-blue-800 font-medium" : "text-gray-700 hover:bg-gray-200"}`}
+                className={`flex items-center gap-3 px-4 py-2  transition 
+                  ${pathname === link.href ? "text-white bg-blue-800 font-medium" : "text-gray-600 hover:bg-blue-800 hover:text-white"}`}
                 onClick={() => setIsOpen(false)}
               >
                 <span className="text-lg">{link.icon}</span>
@@ -88,7 +89,7 @@ export default function UserLayout({ children }: { children: React.ReactNode }) 
         <div className="p-4 border-t">
           <button
             onClick={handleLogout}
-            className={`w-full flex items-center justify-center gap-2 bg-red-500 text-white py-2 rounded-md hover:bg-red-600 transition ${
+            className={`w-full flex items-center justify-center gap-2  text-gray-600 py-2 rounded-md hover:text-red-500 transition ${
               isCollapsed ? "text-xs px-1 justify-center" : ""
             }`}
           >

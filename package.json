@@ -7,8 +7,12 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "seed": "ts-node prisma/seed.cts",
-    "db:reset": "npx prisma migrate reset --force && npx prisma generate"
+
+    "postinstall": "prisma generate && prisma migrate deploy",
+    "migrate:dev": "prisma migrate dev --name init",
+    "db:reset": "prisma migrate reset --force && prisma generate",
+
+    "seed": "ts-node --compiler-options '{\"module\":\"CommonJS\"}' prisma/seed.ts"
   },
   "dependencies": {
     "@next-auth/prisma-adapter": "^1.0.7",
@@ -36,5 +40,8 @@
     "tailwindcss": "^4",
     "ts-node": "^10.9.2",
     "typescript": "^5.9.2"
+  },
+  "prisma": {
+    "seed": "ts-node --compiler-options '{\"module\":\"CommonJS\"}' prisma/seed.ts"
   }
 }

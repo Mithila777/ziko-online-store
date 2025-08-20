@@ -16,7 +16,7 @@ ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend)
 
 type SaleData = { date: string; total: number };
 
-export default function WeeklySalesChart() {
+export default function WeeklySalesQuantity() {
   const [data, setData] = useState<SaleData[]>([]);
 
   useEffect(() => {
@@ -25,6 +25,8 @@ export default function WeeklySalesChart() {
       .then(setData)
       .catch(console.error);
   }, []);
+
+  const totalSold = data.reduce((sum, d) => sum + d.total, 0);
 
   const chartData = {
     labels: data.map(d => d.date),
@@ -41,9 +43,26 @@ export default function WeeklySalesChart() {
     responsive: true,
     plugins: {
       legend: { position: "top" as const },
-      title: { display: true, text: "Weekly Products sale" },
     },
   };
 
-  return <Bar data={chartData} options={options} />;
+  return (
+  <div className="bg-white p-4 sm:p-6 md:p-10 rounded-2xl shadow-md">
+      <h2 className="text-left mb-4 text-gray-700 text-lg font-semibold">
+        Weekly Products Sale
+      </h2>
+
+      {/* ✅ Styled total card */}
+      <div className=" text-center">
+        <p className="text-black">Total Products Sold:  <span className=" font-bold text-blue-600">
+          {totalSold.toLocaleString()}
+        </span></p>
+       
+      </div>
+
+      <div className="w-full h-64">
+        <Bar data={chartData} options={options} />
+      </div>
+    </div>
+  );
 }

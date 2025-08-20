@@ -13,7 +13,7 @@ ChartJS.register(ArcElement, Tooltip, Legend);
 
 type SaleData = { date: string; totalAmount: number };
 
-export default function WeeklySalesPie() {
+export default function WeeklySalesAmount() {
   const [data, setData] = useState<SaleData[]>([]);
   const [totalWeekly, setTotalWeekly] = useState(0);
 
@@ -31,7 +31,7 @@ export default function WeeklySalesPie() {
   const chartData = {
     labels: data.map(d => {
       const day = new Date(d.date).toLocaleDateString("en-US", { weekday: "long" });
-      return `${day} ($${d.totalAmount})`; // e.g. "Sunday ($220)"
+      return `${day} ($${d.totalAmount})`;
     }),
     datasets: [
       {
@@ -67,16 +67,23 @@ export default function WeeklySalesPie() {
   };
 
   return (
-  <div className="bg-white p-6  space-y-4 max-w-md mx-auto">
-  <h2 className="text-xl font-semibold text-center mb-4">Weekly Sales Amount</h2>
-  {/* Adjust the height to match your bar chart */}
-  <div className="w-full h-64 mx-auto"> 
-    <Pie data={chartData} options={options} height={200} />
-  </div>
-  <p className="text-center text-lg font-bold">
-    Total Weekly Sales: ${totalWeekly.toLocaleString()}
-  </p>
-</div>
+  <div className="bg-white p-4 sm:p-6 md:p-10 rounded-2xl shadow-md">
+      <h2 className="text-left mb-4 text-gray-700 text-lg font-semibold ">
+        Weekly Sales Amount
+      </h2>
 
+      {/* ✅ Total sales card */}
+      <div className="  text-center">
+        <p className="text-black ">Total Weekly Sales : <span className=" font-bold text-blue-600">
+          ${totalWeekly.toLocaleString()}
+        </span></p>
+       
+      </div>
+
+      {/* Chart */}
+      <div className="w-full h-64 mx-auto">
+        <Pie data={chartData} options={options} height={200} />
+      </div>
+    </div>
   );
 }

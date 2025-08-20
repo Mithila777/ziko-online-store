@@ -47,7 +47,7 @@ function TopDellSection() {
 
   {/* Left Column (shows after on small) */}
   <div className="order-2 md:order-1 col-span-4">
-    <h3 className="text-4xl font-bold text-center py-6">Deal Of The Day</h3>
+    <h3 className="text-3xl font-bold text-center py-6 uppercase">Deal Of The Day</h3>
 
     <div className="p-6 grid sm:grid-cols-1 lg:grid-cols-2 lg:grid-rows-2 gap-6">
       {discountedProducts.map((product) => (

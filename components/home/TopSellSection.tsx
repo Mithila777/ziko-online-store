@@ -52,7 +52,7 @@ export default function TopSellSection() {
 
   return (
     <div className="px-[6%] py-8 bg-gray-50">
-  <h3 className="text-3xl md:text-4xl font-bold text-center py-6 uppercase">
+  <h3 className="text-3xl font-bold text-center py-6 uppercase">
     Top Selling Products
   </h3>
 

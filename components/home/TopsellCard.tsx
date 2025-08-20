@@ -43,12 +43,19 @@ export default function TopSellCard({
           alt={product.name}
           className="w-full h-48 object-cover"
         />
-        <div className="mt-2">
-          <div className="flex justify-between items-center">
-            <h3 className="text-lg font-semibold">{product.name}</h3>
+        <div className="mt-2 space-y-2">
+          <div className="flex justify-between items-center text-md font-semibold">
+            <h3 className="">{product.name}</h3>
             <p>${(product.price / 100).toFixed(2)}</p>
           </div>
-             <div className="flex items-center gap-1">
+          <div className="flex justify-between text-sm text-gray-500">
+            <p className="">Total Sold: {product.totalSold}</p>
+            <p>Stock: {product.quantity}</p>
+          </div>
+            
+          <div className=" flex justify-between items-center mt-1">
+            
+         <div className="flex items-center gap-1">
               {[...Array(5)].map((_, i) => (
                 <FaStar
                   key={i}
@@ -63,11 +70,6 @@ export default function TopSellCard({
                   : "(No reviews)"}
               </span>
             </div>
-
-          <div className=" flex justify-between items-center mt-1">
-            <p className="text-sm text-gray-500">
-              Total Sold: {product.totalSold}
-            </p>
 
           
 
