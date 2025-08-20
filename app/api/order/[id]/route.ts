@@ -1,8 +1,14 @@
 import { NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
 
-export async function PUT(req: Request, { params }: { params: { id: string } }) {
-  try {
+// define a params type for clarity
+type Params = {
+  params: {
+    id: string;
+  };
+};
+
+export async function PUT(req: Request, { params }: Params) {  try {
     const data = await req.json();
 
     const updatedOrder = await prisma.order.update({
