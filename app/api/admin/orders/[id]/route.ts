@@ -1,14 +1,10 @@
 import { NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
 
- interface RouteParams {
-      params: {
-        id: string;
-      };
-    }
-
-    export async function DELETE(req: Request,{ params }: RouteParams ): Promise<NextResponse> {
-
+export async function DELETE(
+  req: Request,
+  { params }: { params: { id: string } }
+): Promise<Response> {
   try {
     const { id } = params;
 
