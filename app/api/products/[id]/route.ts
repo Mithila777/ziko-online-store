@@ -2,15 +2,10 @@
 import { NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
 
-// define a params type for clarity
-type Params = {
-  params: {
-    id: string;
-  };
-};
 
-export async function GET(req: Request, { params }: Params) { 
-   const { id } = params;
+
+export async function GET(req: Request,{ params }: { params: Promise<{ id: string }> }) {
+  const {id}= await params
   const product = await prisma.product.findUnique({
     where: { id },
   });
@@ -18,8 +13,8 @@ export async function GET(req: Request, { params }: Params) {
 }
 
 
-export async function PUT(req: Request, { params }: Params) { 
-   const { id } = params;
+export async function PUT(req: Request,{ params }: { params: Promise<{ id: string }> }) {
+  const {id}= await params
   const body = await req.json();
   const { name, description, price, image, quantity, category, brand, Model, discount } = body;
 
@@ -35,8 +30,8 @@ export async function PUT(req: Request, { params }: Params) {
 
 
 
-export async function DELETE(req: Request, { params }: Params) { 
-   const { id } = params;
+export async function DELETE(req: Request,{ params }: { params: Promise<{ id: string }> }) {
+  const {id}= await params
   await prisma.product.delete({
     where: { id },
   });

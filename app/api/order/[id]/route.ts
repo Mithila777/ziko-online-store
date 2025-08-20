@@ -1,19 +1,15 @@
 import { NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
 
-// define a params type for clarity
-type Params = {
-  params: {
-    id: string;
-  };
-};
 
-export async function PUT(req: Request, { params }: Params) { 
+
+export async function PUT(req: Request,{ params }: { params: Promise<{ id: string }> }) {
+  const {id}= await params
    try {
     const data = await req.json();
 
     const updatedOrder = await prisma.order.update({
-      where: { id: params.id },
+      where: { id: id },
       data: {
        dailybariStatus   : data.deliveryStatus,
         paymentStatus: data.paymentStatus,
