@@ -1,7 +1,11 @@
 import { NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
 
-export async function GET(_: Request, { params }: { params: { id: string } }) {
+interface Params {
+  params: { id: string };
+}
+
+export async function GET(req: Request, { params }: Params) {
   try {
     const product = await prisma.product.findUnique({ where: { id: params.id } });
     if (!product) return NextResponse.json({ error: "Not found" }, { status: 404 });
@@ -11,7 +15,7 @@ export async function GET(_: Request, { params }: { params: { id: string } }) {
   }
 }
 
-export async function PUT(req: Request, { params }: { params: { id: string } }) {
+export async function PUT(req: Request, { params }: Params) {
   try {
     const body = await req.json();
     const { name, image, description, price, quantity, category, brand, Model, discount } = body;
@@ -37,7 +41,7 @@ export async function PUT(req: Request, { params }: { params: { id: string } }) 
   }
 }
 
-export async function DELETE(_: Request, { params }: { params: { id: string } }) {
+export async function DELETE(req: Request, { params }: Params) {
   try {
     await prisma.product.delete({ where: { id: params.id } });
     return NextResponse.json({ message: "Product deleted successfully" });
