@@ -1,14 +1,10 @@
 import { NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
 
-// define a params type for clarity
-type Params = {
-  params: {
-    id: string;
-  };
-};
-
-export async function DELETE(req: Request, { params }: Params) {
+export async function DELETE(
+  req: Request,
+  { params }: { params: { id: string } }
+) {
   try {
     const { id } = params;
 
