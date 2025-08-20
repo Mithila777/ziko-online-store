@@ -1,128 +1,79 @@
 import { PrismaClient } from '@prisma/client';
+
 const prisma = new PrismaClient();
 
 async function main() {
-  const productsData = [
-    // Phones (4)
-    {
-      name: "iPhone 14",
-      image: "/image/products/phone1.jfif",
-      description: "Latest Apple iPhone with amazing camera",
-      price: 1200,
-      quantity: 50,
-      category: "Phone",
-      brand: "Apple",
-      Model: "14 Pro",
-      discount: 10,
-    },
-    {
-      name: "Samsung Galaxy S23",
-      image: "/image/products/phone2.jfif",
-      description: "High performance Android phone",
-      price: 1000,
-      quantity: 40,
-      category: "Phone",
-      brand: "Samsung",
-      Model: "S23 Ultra",
-      discount: 5,
-    },
-    {
-      name: "OnePlus 11",
-      image: "/image/products/phone3.jfif",
-      description: "Fast and smooth performance",
-      price: 800,
-      quantity: 30,
-      category: "Phone",
-      brand: "OnePlus",
-      Model: "11 Pro",
-    },
-    {
-      name: "Google Pixel 8",
-      image: "/image/products/phone4.jfif",
-      description: "Excellent camera and pure Android experience",
-      price: 900,
-      quantity: 25,
-      category: "Phone",
-      brand: "Google",
-      Model: "Pixel 8",
-    },
+  await prisma.blog.deleteMany({}); // clear table first
 
-    // Laptops (2)
+  const blogs = [
     {
-      name: "MacBook Pro 16",
-      image: "/image/products/laptop1.jfif",
-      description: "Powerful laptop for professionals",
-      price: 2500,
-      quantity: 15,
-      category: "Laptop",
-      brand: "Apple",
-      Model: "16-inch M2",
+      title: 'The Future of AI in Everyday Life',
+      excerpt: 'How AI is transforming the way we live and work.',
+      content: `Artificial Intelligence is rapidly changing our daily routines. 
+It helps with tasks from scheduling meetings to driving cars. 
+Businesses are leveraging AI for better decision-making. 
+Understanding AI's potential today will prepare us for tomorrow.`,
+      image: '/image/blog/blog1.jpg',
     },
     {
-      name: "Dell XPS 15",
-      image: "/image/products/laptop2.jfif",
-      description: "High performance Windows laptop",
-      price: 2000,
-      quantity: 20,
-      category: "Laptop",
-      brand: "Dell",
-      Model: "XPS 15",
-    },
-
-    // Power Banks (2)
-    {
-      name: "Anker PowerCore 10000",
-      image: "/image/products/powerbank1.jfif",
-      description: "Compact and fast charging power bank",
-      price: 50,
-      quantity: 100,
-      category: "Power bank",
-      brand: "Anker",
-      Model: "PowerCore 10000",
+      title: 'Top 10 Travel Destinations in 2025',
+      excerpt: 'Explore the must-visit places around the world this year.',
+      content: `Travel opens our minds to new cultures and experiences. 
+From tropical beaches to snowy mountains, adventure awaits. 
+Planning ahead ensures you get the most out of your trip. 
+These destinations are trending and offer unforgettable experiences.`,
+      image: '/image/blog/blog2.jpg',
     },
     {
-      name: "Xiaomi 20000mAh",
-      image: "/image/products/powerbank2.jfif",
-      description: "High capacity power bank",
-      price: 60,
-      quantity: 80,
-      category: "Power bank",
-      brand: "Xiaomi",
-      Model: "Mi 20000",
-    },
-
-    // Power Adapters (2)
-    {
-      name: "Apple 20W Adapter",
-      image: "/image/products/adapter1.jfif",
-      description: "Fast charging wall adapter",
-      price: 30,
-      quantity: 60,
-      category: "Power Adapter",
-      brand: "Apple",
-      Model: "20W",
+      title: 'Healthy Eating Tips for a Busy Lifestyle',
+      excerpt: 'Simple strategies to maintain nutrition on the go.',
+      content: `Balancing work and health can be challenging. 
+Meal prepping saves time and reduces unhealthy snacking. 
+Incorporating fruits and vegetables is essential. 
+Small changes daily lead to lasting health benefits.`,
+      image: '/image/blog/blog3.jpg',
     },
     {
-      name: "Samsung 25W Adapter",
-      image: "/image/products/adapter2.jfif",
-      description: "Quick charge adapter for Samsung phones",
-      price: 25,
-      quantity: 50,
-      category: "Power Adapter",
-      brand: "Samsung",
-      Model: "25W",
+      title: 'The Rise of Remote Work',
+      excerpt: 'Why remote work is becoming the new normal.',
+      content: `Remote work offers flexibility and autonomy for employees. 
+Companies are adapting to virtual collaboration tools. 
+Maintaining work-life balance is crucial in home offices. 
+This trend is reshaping modern business culture worldwide.`,
+      image: '/image/blog/blog4.jpg',
+    },
+    {
+      title: 'Beginner’s Guide to Investing',
+      excerpt: 'Learn how to grow your money wisely.',
+      content: `Investing early can make a big difference over time. 
+Understanding stocks, bonds, and funds is key. 
+Diversification helps reduce risks. 
+Smart investing ensures financial stability and growth.`,
+      image: '/image/blog/blog5.jpg',
+    },
+    {
+      title: 'Sustainable Living Practices',
+      excerpt: 'Small steps to reduce your environmental impact.',
+      content: `Sustainability starts with conscious choices. 
+Recycling and reducing waste make a tangible difference. 
+Choosing eco-friendly products supports the planet. 
+Every small effort contributes to a healthier future.`,
+      image: '/image/blog/blog6.jpg',
     },
   ];
 
-  for (const product of productsData) {
-    await prisma.product.create({ data: product });
-  }
+  await prisma.$transaction(
+    blogs.map(blog => prisma.blog.create({ data: blog }))
+  );
 
-  console.log("Seeded products with .jfif images successfully!");
+  console.log('6 blogs seeded successfully!');
 }
 
 main()
-  .catch((e) => console.error(e))
+  .catch((e) => {
+    console.error(e);
+    process.exit(1);
+  })
   .finally(async () => {
     await prisma.$disconnect();
   });

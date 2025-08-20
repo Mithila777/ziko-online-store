@@ -1,13 +1,10 @@
+
 'use client';
 
 import { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 
-interface AddProductPageProps {
-  productId?: string; // optional, present when updating
-}
-
-export default function AddProductPage({ productId }: AddProductPageProps) {
+export default function AddProductPage() {
   const [form, setForm] = useState({
     name: '',
     price: '',
@@ -22,8 +19,9 @@ export default function AddProductPage({ productId }: AddProductPageProps) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const productId = searchParams.get('productId'); // optional
 
-  // Fetch product data if updating
   useEffect(() => {
     if (!productId) return;
 
@@ -51,6 +49,7 @@ export default function AddProductPage({ productId }: AddProductPageProps) {
 
     fetchProduct();
   }, [productId]);
+
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
