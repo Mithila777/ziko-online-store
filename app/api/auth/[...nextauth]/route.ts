@@ -6,6 +6,7 @@ import prisma from "@/lib/prisma";
 import { compare } from "bcryptjs";
 import type { AuthOptions } from "next-auth";
 
+// define options (can still export for reuse internally)
 export const authOptions: AuthOptions = {
   adapter: PrismaAdapter(prisma),
   providers: [
@@ -50,10 +51,11 @@ export const authOptions: AuthOptions = {
     },
   },
   pages: {
-    signIn: "/auth/login", // your custom login page
+    signIn: "/auth/login", //  custom login page
   },
   secret: process.env.NEXTAUTH_SECRET,
 };
 
+// ONLY export the NextAuth handler for HTTP methods
 const handler = NextAuth(authOptions);
 export { handler as GET, handler as POST };
