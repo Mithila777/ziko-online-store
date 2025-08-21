@@ -10,8 +10,10 @@ import Footer from "@/components/Footer";
 import { Roboto } from 'next/font/google';
 
 const roboto = Roboto({
-  weight: ['400', '700'], // optional weights
-  subsets: ['latin'],      // optional subsets
+  subsets: ["latin"],
+  weight: ["400", "700"],
+  display: "swap",   // avoids blocking text
+  preload: false,    // prevents automatic font download at build
 });
 
 
