@@ -79,7 +79,7 @@ export default function ProductsPage() {
   };
 
   return (
-    <Suspense>
+    <Suspense fallback={<div>Loading...</div>}>
     <main className="flex px-[5%] py-[4%] bg-gray-100 min-h-screen">
       {/* Left Filters */}
       <aside className="w-1/5 p-4 bg-white rounded shadow space-y-6">

@@ -59,11 +59,13 @@ export default function Home() {
         </div>
 
     </div>
+    <Suspense fallback={<div>Loading...</div>}>
+
     <ServiceSection/>
-    <Suspense> <FeaturedSection/></Suspense>
-     <TopDellSection/>
+       <FeaturedSection/>
       <TopSellSection/> 
       <BlogSection/>
+      </Suspense>
 
     </div>
   );
