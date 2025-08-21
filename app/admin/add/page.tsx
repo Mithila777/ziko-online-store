@@ -1,11 +1,9 @@
-export const dynamic = "force-dynamic";
-
 'use client';
 
 import { useState, useEffect } from 'react';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 
-export default function AddProductPage() {
+export default function AddProductPage({ productId }: { productId?: string }) {
   const [form, setForm] = useState({
     name: '',
     price: '',
@@ -20,9 +18,8 @@ export default function AddProductPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const router = useRouter();
-  const searchParams = useSearchParams();
-  const productId = searchParams.get('productId'); // optional
 
+  // ✅ Fetch product if editing
   useEffect(() => {
     if (!productId) return;
 
@@ -51,13 +48,14 @@ export default function AddProductPage() {
     fetchProduct();
   }, [productId]);
 
-
+  // ✅ Handle input changes
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
+  // ✅ Handle form submit
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
@@ -86,7 +84,7 @@ export default function AddProductPage() {
       if (!res.ok) throw new Error(productId ? 'Failed to update product' : 'Failed to add product');
 
       alert(productId ? 'Product updated successfully!' : 'Product added successfully!');
-      router.push('/admin'); // redirect back to admin dashboard
+      router.push('/admin');
     } catch (err: any) {
       setError(err.message || 'Something went wrong');
     } finally {
@@ -94,13 +92,8 @@ export default function AddProductPage() {
     }
   };
 
-  const InputRow = ({
-    label,
-    children,
-  }: {
-    label: string;
-    children: React.ReactNode;
-  }) => (
+  // ✅ Reusable row
+  const InputRow = ({ label, children }: { label: string; children: React.ReactNode }) => (
     <div className="flex items-center gap-4">
       <label className="w-32 font-medium">{label}</label>
       <div className="flex-1">{children}</div>
