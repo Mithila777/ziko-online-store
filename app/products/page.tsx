@@ -2,7 +2,7 @@
 
 import ProductCard from "@/components/home/ProductCard";
 import { useRouter, useSearchParams } from "next/navigation";
-import { Suspense, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Product } from "@/types/product";
 
 const BRANDS = ["Apple", "Samsung", "OnePlus", "Google", "Dell", "Xiaomi", "Anker"];
@@ -79,7 +79,6 @@ export default function ProductsPage() {
   };
 
   return (
-    <Suspense fallback={<div>Loading...</div>}>
     <main className="flex px-[5%] py-[4%] bg-gray-100 min-h-screen">
       {/* Left Filters */}
       <aside className="w-1/5 p-4 bg-white rounded shadow space-y-6">
@@ -195,6 +194,5 @@ export default function ProductsPage() {
         )}
       </section>
     </main>
-    </Suspense>
   );
 }

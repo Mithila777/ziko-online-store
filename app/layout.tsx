@@ -8,6 +8,7 @@ import { SessionProvider } from "next-auth/react";
 import { CartProvider } from "@/context/CartContext"; // ✅ IMPORT THIS
 import Footer from "@/components/Footer";
 import { Roboto } from 'next/font/google';
+import { Suspense } from "react";
 
 const roboto = Roboto({
   subsets: ["latin"],
@@ -35,7 +36,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <SessionProvider>
           <CartProvider> 
             <Navbar />
+            <Suspense>
             <main className="">{children}</main>
+            </Suspense>
             <Footer/>
           </CartProvider>
         </SessionProvider>
