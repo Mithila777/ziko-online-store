@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
 import ProductCard from "@/components/home/ProductCard";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { Product } from "@/types/product";
 
 const BRANDS = ["Apple", "Samsung", "OnePlus", "Google", "Dell", "Xiaomi", "Anker"];
@@ -21,36 +21,37 @@ export default function ProductsPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  // Sync category from URL
   useEffect(() => {
     const categoryParam = searchParams.get("category");
     setSelectedCategory(categoryParam);
   }, [searchParams]);
 
-  // Fetch products from API
   useEffect(() => {
-    const fetchProducts = async () => {
+    const load = async () => {
       setLoading(true);
+
       let url = `/api/products/allproducts?page=${page}&limit=8`;
       if (selectedCategory) url += `&category=${encodeURIComponent(selectedCategory)}`;
       if (selectedBrand) url += `&brand=${encodeURIComponent(selectedBrand)}`;
-      url += `&minPrice=${priceRange[0]}&maxPrice=${priceRange[1]}`;
+      if (priceRange) url += `&minPrice=${priceRange[0]}&maxPrice=${priceRange[1]}`;
 
       try {
         const res = await fetch(url);
-        if (!res.ok) throw new Error("Failed to fetch products");
         const data = await res.json();
+
+        // API should return { products: [], totalPages: number }
         setProducts(data.products || []);
         setTotalPages(data.totalPages || 1);
       } catch (err) {
-        console.error(err);
+        console.error("Failed to fetch products:", err);
         setProducts([]);
         setTotalPages(1);
       }
+
       setLoading(false);
     };
 
-    fetchProducts();
+    load();
   }, [page, selectedBrand, selectedCategory, priceRange]);
 
   const handleBrandChange = (brand: string) => {
@@ -78,9 +79,11 @@ export default function ProductsPage() {
   };
 
   return (
-    <main className="flex px-5 py-4 bg-gray-100 min-h-screen">
-      {/* Filters */}
+    <Suspense>
+    <main className="flex px-[5%] py-[4%] bg-gray-100 min-h-screen">
+      {/* Left Filters */}
       <aside className="w-1/5 p-4 bg-white rounded shadow space-y-6">
+        {/* All Products Button */}
         <button
           onClick={handleShowAll}
           className="w-full px-4 py-2 bg-blue-800 text-white rounded hover:bg-blue-600 mb-4"
@@ -144,7 +147,7 @@ export default function ProductsPage() {
         </div>
       </aside>
 
-      {/* Products */}
+      {/* Products Grid */}
       <section className="flex-1 ml-6">
         <h1 className="text-2xl font-bold mb-6">
           {selectedCategory ? `${selectedCategory} Products` : "All Products"}
@@ -192,5 +195,6 @@ export default function ProductsPage() {
         )}
       </section>
     </main>
+    </Suspense>
   );
 }

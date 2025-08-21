@@ -8,6 +8,7 @@ import TopSellSection from "@/components/home/TopSellSection";
 import BlogSection from "@/components/home/BlogSection";
 import FeaturedSection from "@/components/home/FeaturedSection";
 import HeroSection from "@/components/home/HeroSection";
+import {Suspense} from "react";
 
 export default function Home() {
   return (
@@ -59,7 +60,7 @@ export default function Home() {
 
     </div>
     <ServiceSection/>
-     <FeaturedSection/>
+    <Suspense> <FeaturedSection/></Suspense>
      <TopDellSection/>
       <TopSellSection/> 
       <BlogSection/>
