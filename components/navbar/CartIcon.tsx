@@ -1,12 +1,22 @@
 "use client";
 
 import { FaShoppingCart } from "react-icons/fa";
-import { useCart } from '@/context/CartContext';
+import { useEffect } from "react";
+import { useSession } from "next-auth/react";
+import { useCart } from "@/context/CartContext";
 
 export default function CartIcon() {
-    const { cart } = useCart();
-  
-    const totalQuantity = cart.reduce((sum, item) => sum +  item.quantity, 0);
+  const { cart, clearCart } = useCart();
+  const { data: session } = useSession();
+
+  // ✅ only runs when session changes
+  useEffect(() => {
+    if (!session) {
+      clearCart();
+    }
+  }, [session, clearCart]);
+
+  const totalQuantity = cart.reduce((sum, item) => sum + item.quantity, 0);
 
   return (
     <div className="relative flex items-center">

@@ -88,13 +88,11 @@ export default function ProductCard({ product }: Props) {
               </span>
             </div>
         </div>
-
-        <button
-  onClick={handleAdd}
-  className="mt-2 sm:mt-3 px-2 sm:px-4 py-1 sm:py-2 bg-blue-800 text-white rounded hover:bg-blue-600 flex items-center justify-center gap-1 sm:gap-2 text-xs sm:text-sm"
->
-  <FaCartShopping className="text-xs sm:text-sm" /> Add to Cart
-</button>
+       
+        <button onClick={handleAdd}  className="mt-2 sm:mt-3 px-2 sm:px-4 py-1 sm:py-2
+         bg-blue-800 text-white  hover:bg-blue-600 flex items-center justify-center gap-1 
+         sm:gap-2 text-xs sm:text-sm">  <FaCartShopping className="text-xs sm:text-sm" /> Add to Cart
+        </button>
 
       </div>
     </Link>

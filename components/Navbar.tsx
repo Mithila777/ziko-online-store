@@ -79,47 +79,48 @@ const categories = [
       </div>
 
       {/* Logo, Search, Icons */}
-      <div className="px-[6%] py-4 bg-white grid grid-cols-2 lg:grid-cols-3 items-center gap-4">
+      <div className="px-[6%] py-4 bg-white grid grid-cols-2 lg:grid-cols-4 items-center gap-4">
   {/* Logo */}
   <div className="text-2xl font-bold text-blue-800">
     Z<span className="text-red-600">iko.</span>
   </div>
 
   {/* Search Bar */}
-  <div className="col-span-2 lg:col-span-1 flex w-full border border-gray-400 overflow-hidden bg-white  order-3 lg:order-none">
-    <input
-      type="text"
-      placeholder="Search for your item’s type…"
-      className="flex-1 px-3 py-2 outline-none text-black "
-      value={search}
-      onChange={(e) => setSearch(e.target.value)}
-    />
-    <button
-      onClick={handleSearch}
-      className="bg-blue-800 px-4 text-white text-xl"
-    >
-      <AiOutlineSearch />
-    </button>
-  </div>
+<div className="col-span-2 lg:col-span-2 flex w-full md:max-w-4xl lg:max-w-5xl border border-gray-400 overflow-hidden bg-white order-3 lg:order-none">
+  <input
+    type="text"
+    placeholder="Search for your item’s type…"
+    className="flex-1 px-3 py-2 outline-none text-black"
+    value={search}
+    onChange={(e) => setSearch(e.target.value)}
+  />
+  <button
+    onClick={handleSearch}
+    className="bg-blue-800 px-4 text-white text-xl"
+  >
+    <AiOutlineSearch />
+  </button>
+</div>
+
 
   {/* Icons */}
   <div className="flex space-x-4 text-lg items-center justify-end">
-    <button onClick={handleClick} aria-label="User account" className="text-2xl hover:text-blue-500">
+    <button onClick={handleClick} aria-label="User account" className="text-2xl hover:text-blue-600">
       <FaUser />
     </button>
 
-    <div className="relative">
+    {/* <div className="relative">
       <FaHeart />
       <span className="absolute -top-2 -right-2 bg-yellow-500 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center">
         4
       </span>
-    </div>
+    </div> */}
 
     <div className="relative flex items-center">
       <Link href="/cart">
         <CartIcon />
       </Link>
-      <span className="ml-1 text-sm">$0.00</span>
+      {/* <span className="ml-1 text-sm">$0.00</span> */}
     </div>
   </div>
        </div>

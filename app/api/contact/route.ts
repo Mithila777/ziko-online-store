@@ -13,7 +13,6 @@ export async function POST(req: NextRequest) {
     const data = await req.json();
     const { name, email, subject, message } = data;
 
-    // Basic validation
     if (!name || !email || !subject || !message) {
       return NextResponse.json(
         { error: "All fields are required" },
@@ -21,13 +20,18 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // Here you can:
-    // 1. Save to database (Prisma, MongoDB, etc.)
-    // 2. Send an email using Nodemailer, SendGrid, etc.
-    console.log("New contact form submission:", data);
+    // Save to database
+    const savedMessage = await prisma.contactMessage.create({
+      data: {
+        name,
+        email,
+        subject,
+        message,
+      },
+    });
 
     return NextResponse.json(
-      { message: "Message sent successfully!" },
+      { message: "Message sent successfully!", savedMessage },
       { status: 200 }
     );
   } catch (error) {

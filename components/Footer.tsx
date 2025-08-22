@@ -7,7 +7,7 @@ function Footer() {
     
     {/* Logo and Description */}
     <div>
-      <h2 className="text-2xl font-bold text-white mb-4">Z<span className="text-yellow-500">iko.</span></h2>
+      <h2 className="text-2xl font-bold text-blue-800 mb-4">Z<span className="text-red-800">iko.</span></h2>
       <p className="text-sm">Your one-stop shop for electronics and accessories. Quality guaranteed.</p>
     </div>
 

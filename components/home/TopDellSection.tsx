@@ -28,7 +28,7 @@ function TopDellSection() {
 
   {/* Right Column (shows first on small) */}
   <div className="md:col-span-2 order-1  md:order-2  p-4 flex items-center justify-center text-center md:text-left bg-black bg-cover bg-center h-full"
-             style={{ backgroundImage: "url('image/hero-image.png')" }}
+             style={{ backgroundImage: "url('image/top-sell.png')" }}
   >
       <div className="space-y-2 md:space-y-6">
       <h4 className="text-lg sm:text-2xl font-bold text-white">TOP DEAL</h4>

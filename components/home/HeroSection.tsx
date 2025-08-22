@@ -12,7 +12,7 @@ function HeroSection({ title, highlight, description, image,  }:HeroProps) {
       <div className="max-w-7xl mx-auto flex flex-col-reverse lg:flex-row items-center justify-between gap-2 md:gap-10">
         
         {/* Left Text Content */}
-       <div className="text-center lg:text-left w-full lg:w-1/2">
+       <div className=" text-center md:text-left w-full lg:w-1/2">
          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-800 leading-snug sm:leading-tight mb-2 md:mb-3 ">
     {title}{" "}
     <span className="text-blue-600">
@@ -29,7 +29,7 @@ function HeroSection({ title, highlight, description, image,  }:HeroProps) {
   </p>
 
   <div className="mt-2 sm:mt-4">
-    <button className="bg-blue-800 text-white px-3 py-2 sm:px-6 sm:py-3 rounded-lg text-xs sm:text-sm md:text-base hover:bg-blue-700 transition duration-300">
+    <button className="bg-blue-800 text-white px-3 py-2 sm:px-6 sm:py-3 text-xs sm:text-sm md:text-base hover:bg-blue-700 transition duration-300">
       Shop Now
     </button>
   </div>
@@ -38,7 +38,7 @@ function HeroSection({ title, highlight, description, image,  }:HeroProps) {
 
 
         {/* Right Image */}
-        <div className="w-full lg:w-1/2">
+        <div className="w-full lg:w-1/2 pb-8">
           <img
             src={image}
             alt="Hero"

@@ -104,7 +104,7 @@ export default function TopDellCard({ product }: Props) {
 
             <button
               onClick={handleAdd}
-              className="mt-3 px-2 md:px-4 py-1 text-xs md:text-sm bg-blue-800 text-white rounded hover:bg-blue-600 flex items-center justify-center gap-2"
+              className="mt-3 px-2 md:px-4 py-1 md:py-2 text-xs md:text-sm bg-blue-800 text-white  hover:bg-blue-600 flex items-center justify-center gap-2"
             >
               <FaCartShopping /> Add to Cart
             </button>

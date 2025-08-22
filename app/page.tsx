@@ -13,7 +13,7 @@ import {Suspense} from "react";
 export default function Home() {
   return (
     <div className="">
-   <div className="grid grid-cols-1 md:grid-cols-6 bg-gray-50 h-[85vh] md:h-auto max-h-screen ">
+   <div className="grid grid-cols-2 md:grid-cols-6 bg-gray-50 h-[50vh] md:h-auto max-h-screen ">
   {/* Left Column - Carousel */}
   <div className="md:col-span-4 h-full">
     <Carousel autoPlay infiniteLoop showThumbs={false} showStatus={false}>
@@ -42,7 +42,7 @@ export default function Home() {
   </div>
 
   {/* Right Column */}
-  <div className="md:col-span-2 p-4 flex items-center justify-center text-center md:text-left bg-black bg-cover bg-center h-full"
+  <div className="md:col-span-2 p-4 flex items-center justify-center text-center md:text-left bg-black bg-cover bg-center h-full md:h-full"
              style={{ backgroundImage: "url('image/hero-image.png')" }}
   >
     <div className="space-y-2 md:space-y-6">
