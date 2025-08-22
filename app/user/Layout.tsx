@@ -36,7 +36,7 @@ export default function UserLayout({ children }: { children: React.ReactNode }) 
 
       {/* Sidebar */}
       <aside
-        className={`fixed lg:static top-0 left-0 h-screen bg-white shadow-md z-30 flex flex-col justify-between transition-all duration-300
+        className={`fixed lg:static top-0 left-0 h-screen bg-white shadow-md z-60 flex flex-col justify-between transition-all duration-300
           ${isCollapsed ? "w-16" : "w-64"}
           ${isOpen ? "translate-x-0" : "-translate-x-full"} 
           lg:translate-x-0`}

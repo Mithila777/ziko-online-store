@@ -81,7 +81,7 @@ export default function LoginPage() {
         </div>
 
         {/* Google Sign In */}
-        <button
+        {/* <button
           onClick={() => signIn("google", { callbackUrl: "/dashboard" })}
           className="w-full flex items-center justify-center gap-3 py-3 px-4 border border-gray-300 rounded-lg shadow-sm hover:bg-gray-50 transition duration-300"
         >
@@ -91,7 +91,7 @@ export default function LoginPage() {
             className="w-5 h-5"
           />
           Sign in with Google
-        </button>
+        </button> */}
 
         {/* Footer Links */}
         <p className="text-sm text-gray-500 mt-6 text-center">

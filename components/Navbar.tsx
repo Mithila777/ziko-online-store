@@ -136,7 +136,7 @@ const categories = [
           >
             {/* Icon only visible on desktop */}
             <FaBars className=" mr-2" />
-            <span>ALL CATEGORIES</span>
+            <span className="text-sm md:text-md">ALL CATEGORIES</span>
           </button>
 
           <AnimatePresence>
@@ -186,15 +186,14 @@ const categories = [
         <div className="flex md:hidden">
           <button
             onClick={() => setMenuOpen(!menuOpen)}
-            className="flex items-center font-semibold"
-          >
+            className="flex items-center font-semibold">
             {/* Icon only visible on mobile */}
-            <span>MENU</span>
-          </button>
+            <span className="text-sm md:text-md">MENU</span>
+            </button>
         </div>
 
         {/* Mobile Menu Dropdown */}
-        <AnimatePresence>
+    <AnimatePresence>
           {menuOpen && (
             <motion.div
               key="menu-dropdown"
@@ -204,21 +203,21 @@ const categories = [
               transition={{ duration: 0.3 }}
               className="absolute top-full left-0 right-0 bg-gray-100 text-black flex flex-col md:hidden z-50 overflow-hidden"
             >
-              {menuItems.map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  className={`block px-4 py-2 ${
-                    isActive(link.href)
-                      ? "text-blue-600"
-                      : "hover:text-blue-600"
-                  }`}
-                >
-                  {link.name}
-                </Link>
-              ))}
-            </motion.div>
-          )}
+                      {menuItems.map((link) => (
+                           <Link
+                                  key={link.href}
+                                  href={link.href}
+                                   onClick={() => setMenuOpen(false)} // ✅ close menu after clicking
+                                    className={`block px-4 py-2 ${
+                                       isActive(link.href)
+                                     ? "text-blue-600" : "hover:text-blue-600"
+                                 }`}>
+                                       {link.name}
+                                </Link>
+                            ))}
+
+                </motion.div>
+                  )}
         </AnimatePresence>
       </div>
     </header>

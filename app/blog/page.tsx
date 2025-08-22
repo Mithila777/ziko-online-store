@@ -36,7 +36,7 @@ export default function Blog() {
 
   return (
     <div className="max-w-6xl mx-auto px-6 py-12">
-      <h1 className="text-3xl md:text-4xl font-bold mb-8 text-center uppercase">
+      <h1 className="text-2xl md:text-3xl font-bold mb-8 text-center uppercase">
         Our Blog
       </h1>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
@@ -52,7 +52,7 @@ export default function Blog() {
               className="w-full h-48 object-cover"
             />
             <div className="p-4">
-              <h2 className="text-xl font-semibold">{blog.title}</h2>
+              <h2 className=" text-sm md:text-xl font-semibold ">{blog.title}</h2>
                <div className="flex items-center text-gray-500 text-sm mt-2 space-x-4">
                           <span className="flex items-center gap-1">
                             <FaUser /> {blog.author || "Admin"}

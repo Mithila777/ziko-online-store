@@ -41,10 +41,10 @@ export default function TopSellCard({
         <img
           src={product.image}
           alt={product.name}
-          className="w-full h-48 object-cover"
+            className="w-32 h-32 md:w-full md:h-auto object-contain"
         />
         <div className="mt-2 space-y-2">
-          <div className="flex justify-between items-center text-md font-semibold">
+          <div className="flex justify-between items-center text-sm md:text-md font-semibold">
             <h3 className="">{product.name}</h3>
             <p>${(product.price / 100).toFixed(2)}</p>
           </div>
@@ -55,21 +55,19 @@ export default function TopSellCard({
             
           <div className=" flex justify-between items-center mt-1">
             
-         <div className="flex items-center gap-1">
-              {[...Array(5)].map((_, i) => (
-                <FaStar
-                  key={i}
-                  className={`text-amber-400 ${
-                    i + 1 <= Math.round(averageRating) ? "" : "text-gray-300"
-                  }`}
-                />
-              ))}
-              <span className="text-sm text-gray-500">
-                {reviews.length > 0
-                  ? `(${reviews.length} review${reviews.length > 1 ? "s" : ""})`
-                  : "(No reviews)"}
-              </span>
-            </div>
+        <div className="flex items-center gap-1 flex-wrap">
+    {[...Array(5)].map((_, i) => (
+      <FaStar
+        key={i}
+        className={`text-amber-400 text-sm md:text-normal ${i + 1 <= Math.round(averageRating) ? "" : "text-gray-300"}`}
+      />
+    ))}
+    <span className="text-sm md:text-normal text-gray-500">
+      {reviews.length > 0
+        ? `(${reviews.length} review${reviews.length > 1 ? "s" : ""})`
+        : "(No reviews)"}
+    </span>
+  </div>
 
           
 

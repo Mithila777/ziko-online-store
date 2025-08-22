@@ -79,120 +79,123 @@ export default function ProductsPage() {
   };
 
   return (
-    <main className="flex px-[5%] py-[4%] bg-gray-100 min-h-screen">
-      {/* Left Filters */}
-      <aside className="w-1/5 p-4 bg-white rounded shadow space-y-6">
-        {/* All Products Button */}
+   <main className="flex flex-col md:flex-row px-4 sm:px-6 lg:px-8 py-4 bg-gray-100 min-h-screen">
+  {/* Left Filters */}
+  <aside className="w-full md:w-1/5 p-4 bg-white rounded shadow space-y-6 mb-6 md:mb-0">
+    {/* All Products Button */}
+    <button
+      onClick={handleShowAll}
+      className="w-full px-3 py-2 sm:px-4 sm:py-2 bg-blue-800 text-white rounded hover:bg-blue-600 mb-4 text-sm sm:text-base"
+    >
+      All Products
+    </button>
+
+    <div>
+      <h2 className="font-bold mb-2 text-sm sm:text-base">Category</h2>
+      {CATEGORIES.map((cat) => (
+        <div key={cat}>
+          <label className="text-xs sm:text-sm">
+            <input
+              type="checkbox"
+              checked={selectedCategory === cat}
+              onChange={() => handleCategoryChange(cat)}
+              className="mr-2"
+            />
+            {cat}
+          </label>
+        </div>
+      ))}
+    </div>
+
+    <div>
+      <h2 className="font-bold mb-2 text-sm sm:text-base">Brand</h2>
+      {BRANDS.map((brand) => (
+        <div key={brand}>
+          <label className="text-xs sm:text-sm">
+            <input
+              type="checkbox"
+              checked={selectedBrand === brand}
+              onChange={() => handleBrandChange(brand)}
+              className="mr-2"
+            />
+            {brand}
+          </label>
+        </div>
+      ))}
+    </div>
+
+    <div>
+      <h2 className="font-bold mb-2 text-sm sm:text-base">Price</h2>
+      <div className="flex items-center space-x-2">
+        <input
+          type="number"
+          value={priceRange[0]}
+          onChange={(e) => handlePriceChange(e, 0)}
+          className="w-1/2 border rounded p-1 text-xs sm:text-sm"
+          min={0}
+        />
+        <span className="text-xs sm:text-sm">-</span>
+        <input
+          type="number"
+          value={priceRange[1]}
+          onChange={(e) => handlePriceChange(e, 1)}
+          className="w-1/2 border rounded p-1 text-xs sm:text-sm"
+          min={0}
+        />
+      </div>
+    </div>
+  </aside>
+
+  {/* Products Grid */}
+  <section className="flex-1 md:ml-6">
+    <h1 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6">
+      {selectedCategory ? `${selectedCategory} Products` : "All Products"}
+    </h1>
+
+    {loading ? (
+      <p>Loading products...</p>
+    ) : products.length === 0 ? (
+      <p>No products found.</p>
+    ) : (
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
+        {products.map((product) => (
+          <ProductCard key={product.id} product={product} />
+        ))}
+      </div>
+    )}
+
+    {/* Pagination */}
+    {totalPages > 1 && (
+      <div className="flex flex-wrap justify-center mt-4 sm:mt-6 space-x-2">
         <button
-          onClick={handleShowAll}
-          className="w-full px-4 py-2 bg-blue-800 text-white rounded hover:bg-blue-600 mb-4"
+          onClick={() => setPage((p) => Math.max(p - 1, 1))}
+          disabled={page === 1}
+          className="px-3 py-1 sm:px-4 sm:py-2 bg-gray-200 rounded text-xs sm:text-sm disabled:opacity-50"
         >
-          All Products
+          Prev
         </button>
+        {Array.from({ length: totalPages }, (_, i) => (
+          <button
+            key={i + 1}
+            onClick={() => setPage(i + 1)}
+            className={`px-3 py-1 sm:px-4 sm:py-2 rounded text-xs sm:text-sm ${
+              page === i + 1 ? "bg-blue-500 text-white" : "bg-gray-200"
+            }`}
+          >
+            {i + 1}
+          </button>
+        ))}
+        <button
+          onClick={() => setPage((p) => Math.min(p + 1, totalPages))}
+          disabled={page === totalPages}
+          className="px-3 py-1 sm:px-4 sm:py-2 bg-gray-200 rounded text-xs sm:text-sm disabled:opacity-50"
+        >
+          Next
+        </button>
+      </div>
+    )}
+  </section>
+</main>
 
-        <div>
-          <h2 className="font-bold mb-2">Category</h2>
-          {CATEGORIES.map((cat) => (
-            <div key={cat}>
-              <label>
-                <input
-                  type="checkbox"
-                  checked={selectedCategory === cat}
-                  onChange={() => handleCategoryChange(cat)}
-                  className="mr-2"
-                />
-                {cat}
-              </label>
-            </div>
-          ))}
-        </div>
-
-        <div>
-          <h2 className="font-bold mb-2">Brand</h2>
-          {BRANDS.map((brand) => (
-            <div key={brand}>
-              <label>
-                <input
-                  type="checkbox"
-                  checked={selectedBrand === brand}
-                  onChange={() => handleBrandChange(brand)}
-                  className="mr-2"
-                />
-                {brand}
-              </label>
-            </div>
-          ))}
-        </div>
-
-        <div>
-          <h2 className="font-bold mb-2">Price</h2>
-          <div className="flex items-center space-x-2">
-            <input
-              type="number"
-              value={priceRange[0]}
-              onChange={(e) => handlePriceChange(e, 0)}
-              className="w-1/2 border rounded p-1"
-              min={0}
-            />
-            <span>-</span>
-            <input
-              type="number"
-              value={priceRange[1]}
-              onChange={(e) => handlePriceChange(e, 1)}
-              className="w-1/2 border rounded p-1"
-              min={0}
-            />
-          </div>
-        </div>
-      </aside>
-
-      {/* Products Grid */}
-      <section className="flex-1 ml-6">
-        <h1 className="text-2xl font-bold mb-6">
-          {selectedCategory ? `${selectedCategory} Products` : "All Products"}
-        </h1>
-
-        {loading ? (
-          <p>Loading products...</p>
-        ) : products.length === 0 ? (
-          <p>No products found.</p>
-        ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {products.map((product) => (
-              <ProductCard key={product.id} product={product} />
-            ))}
-          </div>
-        )}
-
-        {/* Pagination */}
-        {totalPages > 1 && (
-          <div className="flex justify-center mt-6 space-x-2">
-            <button
-              onClick={() => setPage((p) => Math.max(p - 1, 1))}
-              disabled={page === 1}
-              className="px-4 py-2 bg-gray-200 rounded disabled:opacity-50"
-            >
-              Prev
-            </button>
-            {Array.from({ length: totalPages }, (_, i) => (
-              <button
-                key={i + 1}
-                onClick={() => setPage(i + 1)}
-                className={`px-4 py-2 rounded ${page === i + 1 ? "bg-blue-500 text-white" : "bg-gray-200"}`}
-              >
-                {i + 1}
-              </button>
-            ))}
-            <button
-              onClick={() => setPage((p) => Math.min(p + 1, totalPages))}
-              disabled={page === totalPages}
-              className="px-4 py-2 bg-gray-200 rounded disabled:opacity-50"
-            >
-              Next
-            </button>
-          </div>
-        )}
-      </section>
-    </main>
   );
 }

@@ -25,29 +25,31 @@ function TopDellSection() {
   return (
     
      <div className="grid grid-cols-1 md:grid-cols-6">
-  {/* Right Column (shows first on small) */}
-  <div
-    className="order-1 md:order-2 md:col-span-2 p-4 bg-cover flex bg-center text-white items-center border bg-black"
-    style={{
-      backgroundImage:
-        "url('image/young-man-listening-to-music-with-headphones.png')",
-    }}
-  >
-    <div>
-      <h4 className="text-2xl text-white font-bold">TOP DEAL</h4>
 
-      <div className="w-40 bg-red-500 text-center p-4 my-2">
-        <p className="text-xl">50% OFF</p>
+  {/* Right Column (shows first on small) */}
+  <div className="md:col-span-2 order-1  md:order-2  p-4 flex items-center justify-center text-center md:text-left bg-black bg-cover bg-center h-full"
+             style={{ backgroundImage: "url('image/hero-image.png')" }}
+  >
+      <div className="space-y-2 md:space-y-6">
+      <h4 className="text-lg sm:text-2xl font-bold text-white">TOP DEAL</h4>
+
+      <div className="w-28 sm:w-40 bg-red-600 text-center text-gray-200 p-2 sm:p-4 my-2 mx-auto md:mx-0">
+        <p className="text-base sm:text-xl font-semibold">50% OFF</p>
       </div>
 
-      <p className="text-xl text-red-500 font-bold">Limited Time Offer</p>
-      <p>Get Your Favourite products at a lower price</p>
+      <p className="text-red-600 font-bold text-sm sm:text-lg">
+        Limited Time Offer
+      </p>
+      <p className="text-xs sm:text-base text-gray-100">
+        Get Your Favourite products at a lower price
+      </p>
+      </div>
+
     </div>
-  </div>
 
   {/* Left Column (shows after on small) */}
-  <div className="order-2 md:order-1 col-span-4">
-    <h3 className="text-3xl font-bold text-center py-6 uppercase">Deal Of The Day</h3>
+  <div className=" col-span-4">
+    <h3 className=" text-xl md:text-3xl font-bold text-center py-6 uppercase">Deal Of The Day</h3>
 
     <div className="p-6 grid sm:grid-cols-1 lg:grid-cols-2 lg:grid-rows-2 gap-6">
       {discountedProducts.map((product) => (
@@ -56,6 +58,8 @@ function TopDellSection() {
     </div>
   </div>
 </div>
+
+
 
     
   );

@@ -9,7 +9,7 @@ export default function AboutPage() {
   return (
     <div className="">
       {/* Hero Section */}
-      <div className="bg-gray-50 px-20">
+      <div className="bg-gray-50 px-5 md:px-20">
   <div className="grid grid-cols-1 md:grid-cols-2 py-20 gap-8 items-stretch">
     {/* Right Column (Image) */}
     <div className="order-1 md:order-2 p-4 h-full bg-black">
@@ -80,8 +80,8 @@ export default function AboutPage() {
 
       {/* Features Section */}
       <section className="bg-white py-8">
-        <div className="max-w-6xl mx-auto px-6 text-center">
-          <h2 className="text-3xl md:text-3xl font-bold ">
+        <div className="max-w-6xl mx-auto px-0 md:px-6 text-center">
+          <h2 className="text-xl md:text-3xl font-bold  uppercase">
           Why Choose Us
           </h2>
               <ServiceSection/>
@@ -102,18 +102,18 @@ export default function AboutPage() {
 
   {/* Content */}
   <div className="relative max-w-4xl mx-auto px-6 text-center text-white space-y-6">
-    <h2 className="text-4xl md:text-3xl font-extrabold tracking-wide drop-shadow-lg">
+    <h2 className=" text-xl  md:text-3xl font-bold tracking-wide drop-shadow-lg">
       Ready to Shop With Us?
     </h2>
-    <p className="text-lg  text-gray-200 leading-relaxed">
+    <p className=" text-sm md:text-lg  text-gray-200 leading-relaxed">
       Discover high-quality products curated just for you. Start your journey with us today and 
       enjoy shopping like never before.
     </p>
     <div className="flex flex-col sm:flex-row gap-4 justify-center">
-      <button className="bg-blue-700 hover:bg-blue-600 text-white font-semibold px-8 py-3  shadow-lg transition-transform transform hover:scale-105">
+      <button className="bg-blue-700 hover:bg-blue-600 text-white font-semibold px-2 md:px-8 py-3  shadow-lg transition-transform transform hover:scale-105">
         Shop Now
       </button>
-      <button className="bg-white/90 hover:bg-white text-gray-800 font-semibold px-8 py-3  shadow-lg transition-transform transform hover:scale-105">
+      <button className="bg-white/90 hover:bg-white text-gray-800 font-semibold px-2 md:px-8 py-3  shadow-lg transition-transform transform hover:scale-105">
         Learn More
       </button>
     </div>

@@ -29,20 +29,23 @@ const features = [
 
 export default function ServiceSection() {
   return (
-    <section className="bg-white py-12">
+    <section className="bg-white  py-4 md:py-12">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-          {features.map((feature, i) => (
-            <div
-              key={i}
-              className="flex flex-col items-center text-center bg-gray-100  p-10 hover:shadow-md transition-shadow duration-300"
-            >
-              <div className="mb-4">{feature.icon}</div>
-              <h3 className="text-lg font-semibold">{feature.title}</h3>
-              <p className="text-gray-600 text-sm mt-2">{feature.desc}</p>
-            </div>
-          ))}
-        </div>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8">
+    {features.map((feature, i) => (
+      <div
+        key={i}
+        className="flex flex-col items-center text-center bg-gray-100 p-6 sm:p-8 hover:shadow-md transition-shadow duration-300"
+      >
+        <div className="mb-3 sm:mb-4 text-2xl sm:text-3xl">{feature.icon}</div>
+        <h3 className="text-base sm:text-lg font-semibold">{feature.title}</h3>
+        <p className="text-gray-600 text-xs sm:text-sm mt-1 sm:mt-2">{feature.desc}</p>
+      </div>
+    ))}
+  </div>
+</div>
+
       </div>
     </section>
   );

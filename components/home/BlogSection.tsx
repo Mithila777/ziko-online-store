@@ -53,7 +53,7 @@ export default function BlogSection() {
   return (
     <section className="py-10 bg-white">
       <div className="max-w-7xl mx-auto ">
-        <h2 className="text-3xl font-bold text-center mb-8 uppercase">Latest Blogs</h2>
+        <h2 className=" text-xl md:text-3xl font-bold text-center mb-8 uppercase">Latest Blogs</h2>
 
         <Carousel responsive={responsive} infinite autoPlay autoPlaySpeed={3500}>
           {blogs.map((blog) => (
@@ -71,7 +71,7 @@ export default function BlogSection() {
                   />
                 </div>
                  <div className="p-4">
-              <h2 className="text-xl font-semibold">{blog.title}</h2>
+              <h2 className=" text-sm md:text-xl font-semibold">{blog.title}</h2>
                <div className="flex items-center text-gray-500 text-sm mt-2 space-x-4">
                           <span className="flex items-center gap-1">
                             <FaUser /> {blog.author || "Admin"}

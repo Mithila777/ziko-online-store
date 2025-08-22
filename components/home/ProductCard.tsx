@@ -59,43 +59,43 @@ export default function ProductCard({ product }: Props) {
         {/* Image with hover zoom */}
         <div className="overflow-hidden rounded">
           <img
-            className="w-full h-52 object-cover mb-2 transform transition-transform duration-300 group-hover:scale-105"
+            className=" w-32 h-32 md:w-full md:h-52 object-contain  mb-2 transform transition-transform duration-300 group-hover:scale-105"
             src={product.image}
             alt={product.name}
           />
         </div>
 
         <div className="space-y-1 flex-1">
-          <div className="flex justify-between items-center">
-            <p className="font-semibold">{product.name}</p>
-            <p className="font-semibold">${product.price}</p>
+          <div className="md:flex justify-between items-center">
+            <p className=" font-semibold text-xs md:text-sm">{product.name}</p>
+            <p className="font-semibold text-sm md:text-md">${product.price}</p>
           </div>
 
           {/* Rating */}
-          <div className="flex items-center gap-1">
-            {[...Array(5)].map((_, i) => (
-              <FaStar
-                key={i}
-                className={`text-amber-400 ${
-                  i + 1 <= Math.round(averageRating)
-                    ? "opacity-100"
-                    : "opacity-30"
-                }`}
-              />
-            ))}
-            <span className="text-sm text-gray-500">
-              {reviews.length > 0
-                ? `(${reviews.length} review${reviews.length > 1 ? "s" : ""})`
-                : "(No reviews)"}
-            </span>
-          </div>
+           <div className="flex items-center justify-center gap-0 md:gap-1">
+              {[...Array(5)].map((_, i) => (
+                <FaStar
+                  key={i}
+                  className={`text-amber-400 text-xs md:text-md ${
+                    i + 1 <= Math.round(averageRating) ? "opacity-100" : "opacity-30"
+                  }`}
+                />
+              ))}
+              <span className="text-xs md:text-sm text-gray-500">
+                {reviews.length > 0
+                  ? `(${reviews.length} review${reviews.length > 1 ? "s" : ""})`
+                  : "(No reviews)"}
+              </span>
+            </div>
         </div>
 
-        <button onClick={handleAdd}
-          className="mt-3 px-4 py-1 bg-blue-800 text-white rounded hover:bg-blue-600 flex items-center justify-center gap-2"
-        >
-          <FaCartShopping /> Add to Cart
-        </button>
+        <button
+  onClick={handleAdd}
+  className="mt-2 sm:mt-3 px-2 sm:px-4 py-1 sm:py-2 bg-blue-800 text-white rounded hover:bg-blue-600 flex items-center justify-center gap-1 sm:gap-2 text-xs sm:text-sm"
+>
+  <FaCartShopping className="text-xs sm:text-sm" /> Add to Cart
+</button>
+
       </div>
     </Link>
   );

@@ -73,11 +73,11 @@ export default function TopDellCard({ product }: Props) {
 
         <div className="h-full grid place-items-center">
           <div className="space-y-1 text-center">
-            <p className="font-semibold">{product.name}</p>
+            <p className=" font-semibold text-sm md:text-lg">{product.name}</p>
 
             {/* Price */}
             {product.discount && product.discount > 0 ? (
-              <p className="font-semibold text-lg">
+              <p className="font-semibold text-sm md:text-lg">
                 <span className="line-through text-gray-400 mr-2">${product.price.toFixed(2)}</span>
                 <span className="text-red-600">${discountedPrice.toFixed(2)}</span>
               </p>
@@ -86,16 +86,16 @@ export default function TopDellCard({ product }: Props) {
             )}
 
             {/* Rating */}
-            <div className="flex items-center justify-center gap-1">
+            <div className="flex items-center justify-center gap-0 md:gap-1">
               {[...Array(5)].map((_, i) => (
                 <FaStar
                   key={i}
-                  className={`text-amber-400 ${
+                  className={`text-amber-400 text-xs md:text-md ${
                     i + 1 <= Math.round(averageRating) ? "opacity-100" : "opacity-30"
                   }`}
                 />
               ))}
-              <span className="text-sm text-gray-500">
+              <span className="text-xs md:text-sm text-gray-500">
                 {reviews.length > 0
                   ? `(${reviews.length} review${reviews.length > 1 ? "s" : ""})`
                   : "(No reviews)"}
@@ -104,7 +104,7 @@ export default function TopDellCard({ product }: Props) {
 
             <button
               onClick={handleAdd}
-              className="mt-3 px-4 py-1 bg-blue-800 text-white rounded hover:bg-blue-600 flex items-center justify-center gap-2"
+              className="mt-3 px-2 md:px-4 py-1 text-xs md:text-sm bg-blue-800 text-white rounded hover:bg-blue-600 flex items-center justify-center gap-2"
             >
               <FaCartShopping /> Add to Cart
             </button>

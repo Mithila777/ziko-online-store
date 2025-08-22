@@ -36,12 +36,12 @@ export default function FeaturedSection() {
     .slice(0, 8);
 
   return (
-    <main className="px-[6%] py-[4%] bg-gray-50">
-      <h3 className="text-3xl font-bold text-center uppercase py-6">
+    <main className=" px-2 md:px-[6%] py-[4%] bg-gray-50">
+      <h3 className=" text-xl md:text-3xl font-bold text-center uppercase py-6">
         Featured Products
       </h3>
 
-      {/* Filter buttons */}
+      {/* Filter */}
       <div className="flex flex-wrap gap-3 justify-center mb-6">
         {brands.map((brand) => (
           <button
@@ -59,7 +59,7 @@ export default function FeaturedSection() {
       </div>
 
       {/* Product cards */}
-      <div className="p-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className=" p-2 md:p-6 grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         {latestProducts.map((product) => (
           <ProductCard key={product.id} product={product} />
         ))}
