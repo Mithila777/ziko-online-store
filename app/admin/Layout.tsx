@@ -21,6 +21,8 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     { label: "Add Product", href: "/admin/products/add", icon: <FaPlus /> },
     { label: "Orders", href: "/admin/orders", icon: <FaShoppingCart /> },
     { label: "Blogs", href: "/admin/blogs", icon: <FaBlog /> },
+    { label: "Messeges", href: "/admin/messeges", icon: <FaMessage /> },
+
 
   ];
 

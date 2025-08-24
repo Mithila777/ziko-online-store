@@ -2,6 +2,7 @@
 
 import { useCart } from '@/context/CartContext';
 import Link from 'next/link';
+import { FaTrash } from 'react-icons/fa';
 
 export default function CartPage() {
   const { cart, removeFromCart, clearCart } = useCart();
@@ -22,16 +23,16 @@ export default function CartPage() {
               <div className='flex justify-around '>
                 <div className="">
                   <p className="font-medium">{item.name}</p>
-                  <p>Quantity: {item.quantity}</p>
                 </div>
                <img src={item.image} alt={item.name} width={80} height={80} /> 
                  <p className="text-sm text-gray-600">${item.price} each</p>
+                  <p>Quantity: {item.quantity}</p>
+
 
                 <button
                   onClick={() => removeFromCart(item.id)}
                   className="text-red-500 hover:underline"
-                >
-                  Remove
+                ><FaTrash/> 
                 </button>
                 </div>
               </li>

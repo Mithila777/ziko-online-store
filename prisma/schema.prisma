@@ -8,18 +8,21 @@ datasource db {
 }
 
 model User {
-  id            String    @id @default(cuid())
+  id            String           @id @default(cuid())
   name          String
-  phone         String    @unique
-  email         String    @unique
+  phone         String           @unique
+  email         String           @unique
   address       String
   password      String
   emailVerified DateTime?
   image         String?
-  role          String    @default("user")
+  role          String           @default("user")
   order         Order[]
   reviews       Review[]
   sessions      Session[]
+  messages      ContactMessage[]
+  // Replies made by admin (User with admin role)
+  replies Reply[] @relation("AdminReplies")
 }
 
 model Session {
@@ -80,10 +83,24 @@ model Review {
 
 model ContactMessage {
   id        String   @id @default(cuid())
-  name      String
-  email     String
-  subject   String
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  name      String?
+  email     String?
+  subject   String?
   message   String
+  createdAt DateTime @default(now())
+
+  replies Reply[]
+}
+
+model Reply {
+  id        String         @id @default(cuid())
+  messageId String
+  message   ContactMessage @relation(fields: [messageId], references: [id])
+  adminId String
+  admin   User   @relation("AdminReplies", fields: [adminId], references: [id]) 
+  content   String
   createdAt DateTime @default(now())
 }
 

@@ -82,8 +82,10 @@ const categories = [
       <div className="px-[6%] py-4 bg-white grid grid-cols-2 lg:grid-cols-4 items-center gap-4">
   {/* Logo */}
   <div className="text-2xl font-bold text-blue-800">
+  <Link href="/" className="flex items-center">
     Z<span className="text-red-600">iko.</span>
-  </div>
+  </Link>
+</div>
 
   {/* Search Bar */}
 <div className="col-span-2 lg:col-span-2 flex w-full md:max-w-4xl lg:max-w-5xl border border-gray-400 overflow-hidden bg-white order-3 lg:order-none">
@@ -128,7 +130,7 @@ const categories = [
 
 
       {/* --- NAVIGATION --- */}
-      <div className="bg-blue-800 text-white px-[6%] py-6 flex justify-between items-center relative">
+      <div className="bg-blue-800 text-white px-[6%] py-4 md:py-8 flex justify-between items-center relative">
         {/* All Categories Dropdown */}
         <div className="relative">
           <button
@@ -137,7 +139,7 @@ const categories = [
           >
             {/* Icon only visible on desktop */}
             <FaBars className=" mr-2" />
-            <span className="text-sm md:text-md">ALL CATEGORIES</span>
+            <span className="text-xs md:text-md">ALL CATEGORIES</span>
           </button>
 
           <AnimatePresence>
@@ -167,7 +169,7 @@ const categories = [
         </div>
 
         {/* Desktop Menu */}
-        <div className="hidden md:flex space-x-6 font-semibold">
+        <div className="hidden md:flex space-x-6 font-semibold text-sm">
           {menuItems.map((link) => (
             <Link
               key={link.href}
@@ -189,7 +191,7 @@ const categories = [
             onClick={() => setMenuOpen(!menuOpen)}
             className="flex items-center font-semibold">
             {/* Icon only visible on mobile */}
-            <span className="text-sm md:text-md">MENU</span>
+            <span className="text-xs">MENU</span>
             </button>
         </div>
 

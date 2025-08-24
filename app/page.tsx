@@ -13,11 +13,17 @@ import {Suspense} from "react";
 export default function Home() {
   return (
     <div className="">
-   <div className="grid grid-cols-2 md:grid-cols-6 bg-gray-50 h-[50vh] md:h-auto max-h-screen ">
+   <div className="grid grid-cols-2 md:grid-cols-6 bg-gray-50 h-[42vh] md:h-auto max-h-screen ">
   {/* Left Column - Carousel */}
   <div className="md:col-span-4 h-full">
-    <Carousel autoPlay infiniteLoop showThumbs={false} showStatus={false}>
-      <div>
+<Carousel
+  autoPlay
+  infiniteLoop
+  showThumbs={false}
+  showStatus={false}
+  showArrows={false}   // 🚀 hides left/right arrows
+  showIndicators={false} // 🚀 hides bottom dots
+>      <div>
         <HeroSection
           title="BEST DEAL !"
           description="BEST WATCH"

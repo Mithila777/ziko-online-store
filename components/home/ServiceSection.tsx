@@ -29,10 +29,10 @@ const features = [
 
 export default function ServiceSection() {
   return (
-    <section className="bg-white  py-4 md:py-12">
+    <section className="bg-white  py-6 md:py-12">
       <div className="max-w-7xl mx-auto px-2 lg:px-8">
         <div className="max-w-7xl mx-auto px-0 sm:px-6 lg:px-8">
-  <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8">
+  <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 md:gap-6 lg:gap-8">
     {features.map((feature, i) => (
       <div
         key={i}

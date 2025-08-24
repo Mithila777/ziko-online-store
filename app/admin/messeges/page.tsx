@@ -1,107 +1,108 @@
 "use client";
-
 import { useEffect, useState } from "react";
 import AdminLayout from "../Layout";
 
-type ContactMessage = {
-  id: string;
-  name: string;
-  email: string;
-  subject: string;
-  message: string;
-  createdAt: string;
-};
+export default function AdminMessages() {
+  const [messages, setMessages] = useState<any[]>([]);
+  const [replyMap, setReplyMap] = useState<{ [key: string]: string }>({});
 
-export default function MessagesPage() {
-  const [messages, setMessages] = useState<ContactMessage[]>([]);
-  const [loading, setLoading] = useState(true);
-
+  // Fetch messages
   const fetchMessages = async () => {
-    try {
-      const res = await fetch("/api/contact");
-      const data = await res.json();
-      setMessages(data);
-    } catch (err) {
-      console.error(err);
-    } finally {
-      setLoading(false);
-    }
+    const res = await fetch("/api/contact");
+    const data = await res.json();
+    setMessages(data);
   };
 
   useEffect(() => {
     fetchMessages();
   }, []);
 
-  const deleteMessage = async (id: string) => {
-    if (!confirm("Are you sure you want to delete this message?")) return;
+  // Handle reply input change
+  const handleChange = (messageId: string, value: string) => {
+    setReplyMap({ ...replyMap, [messageId]: value });
+  };
 
-    try {
-      await fetch(`/api/contact/${id}`, {
-        method: "DELETE",
-      });
-      fetchMessages(); // refresh
-    } catch (err) {
-      console.error(err);
+  // Send reply
+  const handleReply = async (messageId: string) => {
+    const reply = replyMap[messageId];
+    if (!reply) return;
+
+    const res = await fetch(`/api/contact/${messageId}/reply`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ reply }),
+    });
+
+    if (res.ok) {
+      alert("Reply sent!");
+      setReplyMap({ ...replyMap, [messageId]: "" });
+      fetchMessages();
+    } else {
+      alert("Failed to send reply.");
     }
   };
 
   return (
     <AdminLayout>
-      <h1 className="text-3xl font-bold mb-6 text-gray-800">Contact Messages</h1>
+      <div className="p-6 max-w-6xl mx-auto">
+        <h2 className="text-2xl md:text-3xl font-bold mb-6 text-gray-800">
+          User Messages
+        </h2>
 
-      {loading ? (
-        <p>Loading messages...</p>
-      ) : messages.length === 0 ? (
-        <p>No messages found.</p>
-      ) : (
-        <div className="overflow-x-auto">
-          <table className="min-w-full bg-white divide-y divide-gray-200 shadow rounded-lg">
-            <thead className="bg-gray-50">
-              <tr>
-                <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">
-                  Name
-                </th>
-                <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">
-                  Email
-                </th>
-                <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">
-                  Subject
-                </th>
-                <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">
-                  Message
-                </th>
-                <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">
-                  Date
-                </th>
-                <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">
-                  Action
-                </th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-gray-200">
-              {messages.map((msg) => (
-                <tr key={msg.id} className="hover:bg-gray-50">
-                  <td className="px-4 py-2 font-medium">{msg.name}</td>
-                  <td className="px-4 py-2 text-blue-600">{msg.email}</td>
-                  <td className="px-4 py-2">{msg.subject}</td>
-                  <td className="px-4 py-2 max-w-xs truncate">{msg.message}</td>
-                  <td className="px-4 py-2 text-sm text-gray-500">
-                    {new Date(msg.createdAt).toLocaleString()}
-                  </td>
-                  <td className="px-4 py-2">
-                    <button
-                      onClick={() => deleteMessage(msg.id)}
-                      className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600"
+        <div className="space-y-6">
+          {messages.length === 0 && <p className="text-gray-500">No messages yet.</p>}
+
+          {messages.map((msg) => (
+            <div
+              key={msg.id}
+              className="bg-white shadow-md rounded-lg p-4 md:p-6 border border-gray-200"
+            >
+              {/* User Info */}
+              <div className="flex flex-col md:flex-row md:justify-between md:items-center mb-2">
+                <p className="font-semibold text-gray-800">{msg.user.name || "Anonymous"}</p>
+                <p className="text-gray-500 text-sm">{msg.user.email}</p>
+              </div>
+
+              {/* Message */}
+              <p className="text-gray-700 mb-3">{msg.message}</p>
+
+              {/* Replies */}
+              <div className="ml-4 mb-3">
+                <h4 className="font-semibold text-gray-800 mb-1">Replies:</h4>
+                {msg.replies.length > 0 ? (
+                  msg.replies.map((r: any) => (
+                    <p
+                      key={r.id}
+                      className="text-sm text-gray-600 border-l-2 border-green-400 pl-2 mb-1"
                     >
-                      Delete
-                    </button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+                      ↳ {r.content}
+                    </p>
+                  ))
+                ) : (
+                  <p className="text-gray-400 text-sm">No replies yet.</p>
+                )}
+              </div>
+
+              {/* Reply Input */}
+              <div className="flex flex-col md:flex-row gap-2">
+                <input
+                  type="text"
+                  placeholder="Type reply..."
+                  value={replyMap[msg.id] || ""}
+                  onChange={(e) => handleChange(msg.id, e.target.value)}
+                  className="border border-gray-300 p-2 rounded-md flex-1 focus:outline-none focus:ring-2 focus:ring-green-400"
+                />
+                <button
+                  onClick={() => handleReply(msg.id)}
+                  className="bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-500 transition"
+                >
+                  Reply
+                </button>
+              </div>
+            </div>
+          ))}
         </div>
-      )}
+      </div>
     </AdminLayout>
   );
 }

@@ -28,7 +28,9 @@ export default function ContactPage() {
     }
   }, [session]);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
@@ -38,15 +40,20 @@ export default function ContactPage() {
     setStatus("");
 
     try {
+      const payload = {
+        ...form,
+        userId: session?.user?.id || null, // 👈 attach userId
+      };
+
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
+        body: JSON.stringify(payload),
       });
 
       if (!res.ok) throw new Error("Failed to send message");
 
-      setStatus("Message sent successfully!");
+      setStatus("✅ Message sent successfully!");
       setForm((prev) => ({
         ...prev,
         subject: "",
@@ -54,7 +61,7 @@ export default function ContactPage() {
       }));
     } catch (error) {
       console.error(error);
-      setStatus("Failed to send message. Try again later.");
+      setStatus("❌ Failed to send message. Try again later.");
     } finally {
       setSubmitting(false);
     }
@@ -148,7 +155,17 @@ export default function ContactPage() {
               {submitting ? "Sending..." : "Send Message"}
             </button>
 
-            {status && <p className="text-center text-gray-700 mt-2">{status}</p>}
+            {status && (
+              <p
+                className={`text-center mt-2 ${
+                  status.startsWith("✅")
+                    ? "text-green-600"
+                    : "text-red-600"
+                }`}
+              >
+                {status}
+              </p>
+            )}
           </form>
         </div>
       </div>

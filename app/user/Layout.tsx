@@ -6,6 +6,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { signOut } from "next-auth/react";
 import { FaTachometerAlt, FaUser, FaShoppingBag, FaBoxOpen } from "react-icons/fa";
 import { FiLogOut } from "react-icons/fi";
+import { FaMessage } from "react-icons/fa6";
 
 export default function UserLayout({ children }: { children: React.ReactNode }) {
   const [isOpen, setIsOpen] = useState(false); // mobile drawer
@@ -17,6 +18,8 @@ export default function UserLayout({ children }: { children: React.ReactNode }) 
     { label: "Dashboard", href: "/user/", icon: <FaTachometerAlt /> },
     { label: "Profile", href: "/user/profile", icon: <FaUser /> },
     { label: "Orders", href: "/user/orders", icon: <FaShoppingBag /> },
+     { label: "Message", href: "/user/message", icon: <FaMessage/> },
+
   ];
 
   const handleLogout = async () => {

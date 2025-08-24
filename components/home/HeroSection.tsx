@@ -38,7 +38,7 @@ function HeroSection({ title, highlight, description, image,  }:HeroProps) {
 
 
         {/* Right Image */}
-        <div className="w-full lg:w-1/2 pb-8">
+        <div className="w-full lg:w-1/2 ">
           <img
             src={image}
             alt="Hero"

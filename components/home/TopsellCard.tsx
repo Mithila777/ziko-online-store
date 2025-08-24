@@ -37,11 +37,11 @@ export default function TopSellCard({
 
   return (
     <Link href={`/products/${product.id}`}>
-      <div className="p-4 bg-white hover:shadow-lg transition">
+      <div className="p-4 bg-white hover:shadow-lg transition overflow-hidden">
         <img
           src={product.image}
           alt={product.name}
-            className="w-32 h-32 md:w-full md:h-auto object-contain"
+            className="w-32 h-32 md:w-40 md:h-40 object-contain"
         />
         <div className="mt-2 space-y-2">
           <div className="flex justify-between items-center text-sm md:text-md font-semibold">

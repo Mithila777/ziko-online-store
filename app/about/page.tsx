@@ -10,7 +10,7 @@ export default function AboutPage() {
     <div className="">
       {/* Hero Section */}
       <div className="bg-gray-50 px-5 md:px-20">
-  <div className="grid grid-cols-1 md:grid-cols-2 py-20 gap-8 items-stretch">
+  <div className="grid grid-cols-1 md:grid-cols-2 py-2 md:py-20 gap-2  md:gap-8 items-stretch">
     {/* Right Column (Image) */}
     <div className="order-1 md:order-2 p-4 h-full bg-black">
       <img
@@ -22,7 +22,7 @@ export default function AboutPage() {
 
     {/* Left Column (Text + Stats) */}
     <div className="order-2 md:order-1 space-y-8 h-full flex flex-col justify-between">
-      <div className="py-10 space-y-8">
+      <div className="py-10 md:space-y-8  ">
         <div className="space-y-6">
           <h1 className="text-4xl md:text-3xl">Our Story</h1>
           <p className="text-gray-600 md:text-sm text-base leading-relaxed">
@@ -79,7 +79,7 @@ export default function AboutPage() {
 
 
       {/* Features Section */}
-      <section className="bg-white py-8">
+      <section className="bg-white py-4  md:py-8">
         <div className="max-w-6xl mx-auto px-0 md:px-6 text-center">
           <h2 className="text-xl md:text-3xl font-bold  uppercase">
           Why Choose Us
