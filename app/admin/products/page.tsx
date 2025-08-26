@@ -104,33 +104,43 @@ export default function ProductsPage() {
               </tr>
             </thead>
 
-            <tbody className="divide-y divide-gray-200 text-xs md:text-sm">
-              {currentProducts.map((product) => (
-                <tr key={product.id}>
-                  <td className="px-4 py-2">{product.name}</td>
-                  <td className="px-4 py-2">{product.price}</td>
-                  <td className="px-4 py-2">{product.quantity}</td>
-                  <td className="px-4 py-2 hidden sm:table-cell">{product.category}</td>
-                  <td className="px-4 py-2 hidden sm:table-cell">{product.brand}</td>
-                  <td className="px-4 py-2 hidden sm:table-cell">{product.Model}</td>
-                  <td className="px-4 py-2">{product.discount || 0}</td>
-                  <td className="px-4 py-2 space-x-2 flex">
-                    <button
-                      onClick={() => router.push(`/admin/products/${product.id}`)}
-                      className="px-2 py-1 bg-blue-500 text-white rounded hover:bg-blue-600 flex items-center gap-1"
-                    >
-                      <FaEdit /> 
-                    </button>
-                    <button
-                      onClick={() => deleteProduct(product.id)}
-                      className="px-2 py-1 bg-red-500 text-white rounded hover:bg-red-600 flex items-center gap-1"
-                    >
-                      <FaTrash /> 
-                    </button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
+          <tbody className="divide-y divide-gray-200 text-xs md:text-sm">
+  {currentProducts.map((product) => (
+    <tr key={product.id} className="text-gray-700">
+      {/* Always show these (Name, Price, Qty) */}
+      <td className="px-2 sm:px-4 py-2">{product.name}</td>
+      <td className="px-2 sm:px-4 py-2">{product.price}</td>
+      <td className="px-2 sm:px-4 py-2">{product.quantity}</td>
+
+      {/* Hide on mobile, show on sm+ */}
+      <td className="px-2 sm:px-4 py-2 hidden sm:table-cell">{product.category}</td>
+      <td className="px-2 sm:px-4 py-2 hidden sm:table-cell">{product.brand}</td>
+
+      {/* Hide until lg */}
+      <td className="px-2 sm:px-4 py-2 hidden lg:table-cell">{product.Model}</td>
+
+      {/* Show always */}
+      <td className="px-2 sm:px-4 py-2">{product.discount || 0}</td>
+
+      {/* Actions — keep small buttons on mobile */}
+      <td className="px-2 sm:px-4 py-2 flex space-x-1 sm:space-x-2">
+        <button
+          onClick={() => router.push(`/admin/products/${product.id}`)}
+          className="px-2 py-1 bg-blue-500 text-white rounded hover:bg-blue-600 text-xs sm:text-sm flex items-center gap-1"
+        >
+          <FaEdit />
+        </button>
+        <button
+          onClick={() => deleteProduct(product.id)}
+          className="px-2 py-1 bg-red-500 text-white rounded hover:bg-red-600 text-xs sm:text-sm flex items-center gap-1"
+        >
+          <FaTrash />
+        </button>
+      </td>
+    </tr>
+  ))}
+</tbody>
+
           </table>
         </div>
       )}

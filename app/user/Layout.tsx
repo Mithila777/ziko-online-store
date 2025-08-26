@@ -39,7 +39,7 @@ export default function UserLayout({ children }: { children: React.ReactNode }) 
 
       {/* Sidebar */}
       <aside
-        className={`fixed lg:static top-0 left-0 h-auto bg-white shadow-md z-60 flex flex-col justify-between transition-all duration-300
+        className={`fixed lg:static top-0 left-0 h-full md:h-auto bg-white shadow-md z-60 flex flex-col justify-between transition-all duration-300
           ${isCollapsed ? "w-16" : "w-64"}
           ${isOpen ? "translate-x-0" : "-translate-x-full"} 
           lg:translate-x-0`}
@@ -78,7 +78,7 @@ export default function UserLayout({ children }: { children: React.ReactNode }) 
                 key={link.href}
                 href={link.href}
                 className={`flex items-center gap-3 px-4 py-2  transition 
-                  ${pathname === link.href ? "text-white bg-blue-800 font-medium" : "text-gray-600 hover:bg-blue-800 hover:text-white"}`}
+                  ${pathname === link.href ? "text-blue-800 font-medium" : "text-gray-600 hover:text-blue-800"}`}
                 onClick={() => setIsOpen(false)}
               >
                 <span className="text-lg">{link.icon}</span>

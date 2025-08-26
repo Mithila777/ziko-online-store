@@ -156,15 +156,15 @@ export default function OrdersPage() {
 
               {/* Table */}
              <div className="overflow-x-auto">
-  <table className="min-w-[400px] w-full text-xs sm:text-sm text-left text-gray-600 border-collapse ">
+  <table className="w-full text-xs sm:text-sm text-left text-gray-600 border-collapse ">
     <thead className="bg-blue-800 text-gray-50 uppercase text-xs sm:text-sm ">
       <tr>
         <th className=" px-1 md:px-4 py-2">Product</th>
-        <th className="px-1 md:px-4 py-2 ">Qty</th>
+        <th className="px-0 md:px-4 py-2 ">Qty</th>
 
         <th className="px-1 md:px-4 py-2">Price</th>
-        <th className=" px-1 md:px-4py-2">Total</th>
-        <th className=" px-1 md:px-4 py-2"></th>
+        <th className=" px-1 md:px-4 py-2">Total</th>
+        <th className=" px-0 md:px-4 py-2"></th>
       </tr>
     </thead>
     <tbody>
@@ -179,11 +179,11 @@ export default function OrdersPage() {
                 className="w-10 h-10 sm:w-14 sm:h-14 object-cover rounded"
               />
             )}
-            <span className="font-medium truncate">{item.product.name}</span>
+            <span className=" font-normal md:font-medium">{item.product.name}</span>
           </td>
 
           {/* Quantity */}
-            <td className="px-1 md:px-4 py-2">{item.quantity}</td>
+            <td className="px-0 md:px-4 py-2">{item.quantity}</td>
 
           {/* Price */}
           <td className="px-1 md:px-4 py-2">${(item.product.price || 0).toFixed(2)}</td>
@@ -198,7 +198,7 @@ export default function OrdersPage() {
             {order.dailybariStatus === "Delivered" && (
               <button
                 onClick={() => router.push(`/products/${item.product.id}/review`)}
-                className="px-2 sm:px-3 py-1 text-xs bg-blue-600 text-white rounded hover:bg-blue-700 transition"
+                className=" py-1 text-xs bg-blue-600 text-white  hover:bg-blue-700 transition"
               >
                 Add Review
               </button>

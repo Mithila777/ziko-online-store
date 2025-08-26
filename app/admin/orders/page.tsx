@@ -1,5 +1,6 @@
 "use client";
 
+import { AiOutlineCloseCircle } from "react-icons/ai";
 import AdminLayout from "../Layout";
 import { useEffect, useState } from "react";
 
@@ -85,7 +86,7 @@ export default function OrdersPage() {
                 <th className="px-4 py-2 text-left text-xs  text-gray-500 uppercase hidden sm:table-cell">
                   User
                 </th>
-                <th className="px-4 py-2 text-left text-xs  text-gray-500 uppercase hidden sm:table-cell">
+                <th className="px-4 py-2 text-left text-xs text-gray-500 uppercase hidden lg:table-cell">
                   Products
                 </th>
                 
@@ -114,7 +115,7 @@ export default function OrdersPage() {
                   <tr key={order.id} className="hover:bg-gray-50 text-xs md:text-sm font-normal">
               <td className="px-2 sm:px-4 py-2 break-all sm:break-normal text-xs sm:text-sm">{order.id}</td>      
               <td className=" px-1 md:px-4 py-2 hidden sm:table-cell">{order.user?.name || "Guest"}</td>
-                    <td className="px-4 py-2 hidden sm:table-cell">
+                    <td className="px-4 py-2 hidden lg:table-cell">
                       {order.items.map((item, idx) => (
                         <div key={idx} className="flex justify-between">
                           <span>{item.product.name} x {item.quantity}</span>
@@ -149,20 +150,24 @@ export default function OrdersPage() {
                         <option value="Delivered">Delivered</option>
                       </select>
                     </td>
-                    <td className="px-1 md:px-4 py-2">
-  <button
-    onClick={() => deleteOrder(order.id)}
-    className={`px-3 py-1 rounded text-white ${
-      order.paymentStatus === "Paid" || order.dailybariStatus === "Delivered"
-        ? "bg-gray-400 cursor-not-allowed"
-        : "bg-red-500 hover:bg-red-600"
-    }`}
-    disabled={order.paymentStatus === "Paid" || order.dailybariStatus === "Delivered"}
-  >
-    Cancel
-  </button>
-</td>
+                    <td className="px-1 md:px-3 lg:px-4 py-2">
+            <button
+              onClick={() => deleteOrder(order.id)}
+              className={`px-2 py-1 rounded text-white text-[10px] sm:text-xs ${
+                order.paymentStatus === "Paid" ||
+                order.dailybariStatus === "Delivered"
+                  ? "bg-gray-400 cursor-not-allowed"
+                  : "bg-red-500 hover:bg-red-600"
+              }`}
+              disabled={
+                order.paymentStatus === "Paid" ||
+                order.dailybariStatus === "Delivered"
+              }
+            >
+                            <AiOutlineCloseCircle />
 
+            </button>
+          </td>
                   </tr>
                 );
               })}
