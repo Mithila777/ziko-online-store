@@ -35,7 +35,7 @@ export default function CartPage() {
             {cart.map(item => (
               <li
                 key={item.id}
-                className="flex justify-between items-center  bg-white p-1  md:p-4 rounded shadow"
+                className="flex justify-between   bg-white p-1  md:p-4 rounded shadow"
               >
                 {/* Product Info */}
                 <div className="flex items-center gap-1 md:gap-4">
@@ -46,23 +46,30 @@ export default function CartPage() {
                   </div>
                 </div>
 
-                {/* Quantity Controls */}
-                <div className="flex items-centter text-sm">
-                  <button
-                    onClick={() => decreaseQuantity(item)}
-                    className=" p-1 md:p-2 border"
-                    disabled={item.quantity <= 1}
-                  >
-                    <FaMinus />
-                  </button>
-                  <span className=" p-1 md:p-2 border-y">{item.quantity}</span>
-                  <button
-                    onClick={() => increaseQuantity(item)}
-                    className="p-1  md:p-2 border"
-                  >
-                    <FaPlus />
-                  </button>
-                </div>
+              {/* Quantity Controls */}
+<div className="flex items-center text-sm space-x-1 md:space-x-2">
+  {/* Decrease */}
+  <button
+    onClick={() => decreaseQuantity(item)}
+    className="flex justify-center items-center w-6 h-6 md:w-8 md:h-8 border rounded hover:bg-gray-100 disabled:opacity-50"
+    disabled={item.quantity <= 1}
+  >
+    <FaMinus className="text-xs md:text-sm" />
+  </button>
+
+  {/* Quantity Display */}
+  <span className="flex justify-center items-center w-6 h-6 md:w-8 md:h-8 border-y text-center text-xs md:text-sm">
+    {item.quantity}
+  </span>
+
+  {/* Increase */}
+  <button
+    onClick={() => increaseQuantity(item)}
+    className="flex justify-center items-center w-6 h-6 md:w-8 md:h-8 border rounded hover:bg-gray-100"
+  >
+    <FaPlus className="text-xs md:text-sm" />
+  </button>
+</div>
 
                 {/* Item Total */}
                 <p className="font-semibold text-sm ">${(item.price * item.quantity).toFixed(2)}</p>

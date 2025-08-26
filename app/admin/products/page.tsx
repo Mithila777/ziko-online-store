@@ -34,24 +34,24 @@ export default function ProductsPage() {
     }
   };
 
-  useEffect(() => {
-    fetchProducts();
+  useEffect(() => {fetchProducts();
   }, []);
 
   const deleteProduct = async (id: string) => {
-    if (!confirm("Are you sure you want to delete this product?")) return;
+  if (!confirm("Are you sure you want to delete this product?")) return;
 
-    try {
-      await fetch("/api/admin/products", {
-        method: "DELETE",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ productId: id }),
-      });
-      fetchProducts(); // refresh after delete
-    } catch (err) {
-      console.error(err);
-    }
-  };
+  try {
+    await fetch(`/api/admin/products/${id}`, {
+      method: "DELETE",
+      headers: { "Content-Type": "application/json" },
+      // body is optional if your API deletes by URL param
+      // body: JSON.stringify({ productId: id }),
+    });
+    fetchProducts(); // refresh after delete
+  } catch (err) {
+    console.error(err);
+  }
+};
 
   // Pagination logic
   const totalPages = Math.ceil(products.length / itemsPerPage) || 1;
