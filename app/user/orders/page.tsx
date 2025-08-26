@@ -111,7 +111,7 @@ export default function OrdersPage() {
 
   return (
     <UserLayout>
-      <div className="max-w-6xl mx-auto mt-10 space-y-12 px-3 md:px-0">
+      <div className="max-w-6xl mx-auto  mt-4 md:mt-10 space-y-4 md:space-y-12">
         <h1 className="text-2xl md:text-3xl font-bold text-gray-800 mb-6">
           Your Orders
         </h1>
@@ -122,21 +122,18 @@ export default function OrdersPage() {
           const grandTotal = subtotal + shipping;
 
           return (
-            <div
-              key={order.id}
-              className="shadow-sm rounded-lg overflow-hidden border"
-            >
+            <div key={order.id} className="shadow-sm  overflow-hidden " >
               {/* Order Info */}
               <div className="bg-gray-50 px-4 md:px-6 py-4 border-b">
                 <div className="flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
-                  <div className="space-y-1">
-                    <p className="font-semibold text-gray-800 break-all">
+                  <div className=" space-y-0 md:space-y-1 text-xs md:text-sm">
+                    <p className="  font-normal md:font-semibold text-gray-800 break-all">
                       Order ID:{" "}
                       <span className="text-gray-600">#{order.id}</span>
                     </p>
-                    <p className="text-gray-800">Name: {user?.name}</p>
-                    <p className="text-gray-800">Phone: {user?.phone}</p>
-                    <p className="text-gray-800">Address: {user?.address}</p>
+                    <p className="text-gray-800  ">Name: {user?.name}</p>
+                    <p className="text-gray-800 ">Phone: {user?.phone}</p>
+                    <p className="text-gray-800 ">Address: {user?.address}</p>
                     <p className="text-sm text-gray-500">
                       Date:{" "}
                       {order.createdAt
@@ -158,57 +155,49 @@ export default function OrdersPage() {
               </div>
 
               {/* Table */}
-              <div className="overflow-x-auto">
-               {/* Table */}
-<div className="overflow-x-auto">
-  <table className="min-w-[700px] w-full text-xs sm:text-sm text-left text-gray-600">
-    <thead className="bg-blue-800 text-gray-50 uppercase">
+             <div className="overflow-x-auto">
+  <table className="min-w-[400px] w-full text-xs sm:text-sm text-left text-gray-600 border-collapse ">
+    <thead className="bg-blue-800 text-gray-50 uppercase text-xs sm:text-sm ">
       <tr>
-        <th className="px-4 sm:px-6 py-3">Product</th>
-        <th className="px-4 sm:px-6 py-3">Price</th>
-        <th className="px-4 sm:px-6 py-3">Quantity</th>
-        <th className="px-4 sm:px-6 py-3">Total</th>
-        <th className="px-4 sm:px-6 py-3"></th>
+        <th className=" px-1 md:px-4 py-2">Product</th>
+        <th className="px-1 md:px-4 py-2 ">Qty</th>
+
+        <th className="px-1 md:px-4 py-2">Price</th>
+        <th className=" px-1 md:px-4py-2">Total</th>
+        <th className=" px-1 md:px-4 py-2"></th>
       </tr>
     </thead>
     <tbody>
       {order.items.map((item) => (
-        <tr
-          key={item.id}
-          className="bg-white border-b hover:bg-gray-50 transition"
-        >
+        <tr key={item.id} className="bg-white border-b hover:bg-gray-50 transition">
           {/* Product */}
-          <td className="px-4 sm:px-6 py-4 flex items-center gap-3">
+          <td className=" px-1 md:px-4 py-2  block md:flex items-center gap-1 sm:gap-3">
             {item.product.image && (
               <img
-                src={item.product.image}
+                src={item.product.image || "/placeholder.png"}
                 alt={item.product.name}
-                className="w-12 h-12 sm:w-14 sm:h-14 object-cover rounded"
+                className="w-10 h-10 sm:w-14 sm:h-14 object-cover rounded"
               />
             )}
-            <span className="font-medium">{item.product.name}</span>
-          </td>
-
-          {/* Price */}
-          <td className="px-4 sm:px-6 py-4">
-            ${item.product.price?.toFixed(2) || "0.00"}
+            <span className="font-medium truncate">{item.product.name}</span>
           </td>
 
           {/* Quantity */}
-          <td className="px-4 sm:px-6 py-4">{item.quantity}</td>
+            <td className="px-1 md:px-4 py-2">{item.quantity}</td>
+
+          {/* Price */}
+          <td className="px-1 md:px-4 py-2">${(item.product.price || 0).toFixed(2)}</td>
 
           {/* Total */}
-          <td className="px-4 sm:px-6 py-4 font-semibold text-gray-800">
-            ${(item.product.price || 0 * item.quantity).toFixed(2)}
+          <td className="px-1 md:px-4 py-2 font-semibold text-gray-800 ">
+            ${((item.product.price || 0) * item.quantity).toFixed(2)}
           </td>
 
           {/* Action */}
-          <td className="px-4 sm:px-6 py-4">
+          <td className=" px-1 md:px-4 py-2">
             {order.dailybariStatus === "Delivered" && (
               <button
-                onClick={() =>
-                  router.push(`/products/${item.product.id}/review`)
-                }
+                onClick={() => router.push(`/products/${item.product.id}/review`)}
                 className="px-2 sm:px-3 py-1 text-xs bg-blue-600 text-white rounded hover:bg-blue-700 transition"
               >
                 Add Review
@@ -219,39 +208,30 @@ export default function OrdersPage() {
       ))}
     </tbody>
 
-    {/* Footer */}
-    <tfoot className="bg-gray-50 text-gray-700 font-medium">
+    {/* Footer for large screens */}
+    <tfoot className="bg-gray-50 text-gray-700 font-medium table-footer-group">
       <tr>
-        <td colSpan={3} className="px-4 sm:px-6 py-3 text-right">
-          Subtotal:
-        </td>
-        <td className="px-4 sm:px-6 py-3">${subtotal.toFixed(2)}</td>
+        <td colSpan={3} className="px-1 sm:px-4 py-2 text-right">Subtotal:</td>
+        <td className="px-1 sm:px-4 py-2">${subtotal.toFixed(2)}</td>
         <td></td>
       </tr>
       <tr>
-        <td colSpan={3} className="px-4 sm:px-6 py-3 text-right">
-          Shipping:
-        </td>
-        <td className="px-4 sm:px-6 py-3">${shipping.toFixed(2)}</td>
+        <td colSpan={3} className="px-1 sm:px-4 py-2 text-right">Shipping:</td>
+        <td className="px-1 sm:px-4 py-2">${shipping.toFixed(2)}</td>
         <td></td>
       </tr>
       <tr>
-        <td
-          colSpan={3}
-          className="px-4 sm:px-6 py-3 text-right font-bold"
-        >
-          Total:
-        </td>
-        <td className="px-4 sm:px-6 py-3 font-bold text-gray-900">
+        <td colSpan={3} className="px-1 sm:px-4 py-2 text-right font-bold">Total:</td>
+        <td className="px-1 sm:px-4 py-2 font-bold text-gray-900">
           ${grandTotal.toFixed(2)} ({order.paymentStatus})
         </td>
         <td></td>
       </tr>
     </tfoot>
   </table>
+
 </div>
 
-              </div>
             </div>
           );
         })}

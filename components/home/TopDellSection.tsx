@@ -51,7 +51,7 @@ function TopDellSection() {
   <div className=" col-span-4">
     <h3 className=" text-xl md:text-3xl font-bold text-center py-6 uppercase">Deal Of The Day</h3>
 
-    <div className="p-6 grid sm:grid-cols-1 lg:grid-cols-2 lg:grid-rows-2 gap-6">
+    <div className="p-6 grid sm:grid-cols-1 lg:grid-cols-2 lg:grid-rows-2 gap-2 md:gap-6">
       {discountedProducts.map((product) => (
         <TopDellCard key={product.id} product={product} />
       ))}

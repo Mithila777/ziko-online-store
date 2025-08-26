@@ -77,55 +77,55 @@ export default function ProductsPage() {
           <table className="min-w-full divide-y divide-gray-200">
             <thead className="bg-gray-50">
               <tr>
-                <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">
+                <th className="px-4 py-2 text-left text-xs font-normal  text-gray-500 uppercase">
                   Name
                 </th>
-                <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">
+                <th className="px-4 py-2 text-left text-xs font-normal text-gray-500 uppercase">
                   Price ($)
                 </th>
-                <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">
-                  Quantity
+                <th className="px-4 py-2 text-left text-xs font-normal text-gray-500 uppercase">
+                  Qty
                 </th>
-                <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">
+                <th className="px-4 py-2 text-left text-xs  hidden sm:table-cell font-normal text-gray-500 uppercase">
                   Category
                 </th>
-                <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">
+                <th className="px-4 py-2 text-left text-xs hidden sm:table-cell font-normal text-gray-500 uppercase">
                   Brand
                 </th>
-                <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">
+                <th className="px-4 py-2 text-left hidden sm:table-cell text-xs font-normal text-gray-500 uppercase">
                   Model
                 </th>
-                <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">
-                  Discount (%)
+                <th className="px-4 py-2 text-left text-xs font-normal text-gray-500 uppercase">
+                  Dis (%)
                 </th>
-                <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">
+                <th className="px-4 py-2 text-left text-xs  text-gray-500 uppercase">
                   Actions
                 </th>
               </tr>
             </thead>
 
-            <tbody className="divide-y divide-gray-200">
+            <tbody className="divide-y divide-gray-200 text-xs md:text-sm">
               {currentProducts.map((product) => (
                 <tr key={product.id}>
                   <td className="px-4 py-2">{product.name}</td>
                   <td className="px-4 py-2">{product.price}</td>
                   <td className="px-4 py-2">{product.quantity}</td>
-                  <td className="px-4 py-2">{product.category}</td>
-                  <td className="px-4 py-2">{product.brand}</td>
-                  <td className="px-4 py-2">{product.Model}</td>
+                  <td className="px-4 py-2 hidden sm:table-cell">{product.category}</td>
+                  <td className="px-4 py-2 hidden sm:table-cell">{product.brand}</td>
+                  <td className="px-4 py-2 hidden sm:table-cell">{product.Model}</td>
                   <td className="px-4 py-2">{product.discount || 0}</td>
                   <td className="px-4 py-2 space-x-2 flex">
                     <button
                       onClick={() => router.push(`/admin/products/${product.id}`)}
                       className="px-2 py-1 bg-blue-500 text-white rounded hover:bg-blue-600 flex items-center gap-1"
                     >
-                      <FaEdit /> Edit
+                      <FaEdit /> 
                     </button>
                     <button
                       onClick={() => deleteProduct(product.id)}
                       className="px-2 py-1 bg-red-500 text-white rounded hover:bg-red-600 flex items-center gap-1"
                     >
-                      <FaTrash /> Delete
+                      <FaTrash /> 
                     </button>
                   </td>
                 </tr>

@@ -68,7 +68,7 @@ export default function OrdersPage() {
 
   return (
     <AdminLayout>
-      <h1 className="text-3xl font-bold mb-6 text-gray-800">Manage Orders</h1>
+      <h1 className=" text-xl uppercase md:text-3xl font-bold mb-6 text-gray-800">Manage Orders</h1>
 
       {loading ? (
         <p>Loading orders...</p>
@@ -79,25 +79,26 @@ export default function OrdersPage() {
           <table className="min-w-full bg-white divide-y divide-gray-200 shadow rounded-lg">
             <thead className="bg-gray-50">
               <tr>
-                <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">
+                <th className="  px-2 md:px-4 py-2 text-left text-xs text-gray-500 uppercase">
                   Order ID
                 </th>
-                <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">
+                <th className="px-4 py-2 text-left text-xs  text-gray-500 uppercase hidden sm:table-cell">
                   User
                 </th>
-                <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">
+                <th className="px-4 py-2 text-left text-xs  text-gray-500 uppercase hidden sm:table-cell">
                   Products
                 </th>
-                <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">
+                
+                <th className=" px-1 md:px-4 py-2 text-left text-xs text-gray-500 uppercase">
                   Total ($)
                 </th>
-                <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">
+                <th className=" px-1 md:px-4 py-2 text-left text-xs  text-gray-500 uppercase">
                   Payment Status
                 </th>
-                <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">
+                <th className=" px-1 md:px-4 py-2 text-left text-xs  text-gray-500 uppercase">
                   Delivery Status
                 </th>
-                <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">
+                <th className=" px-1 md:px-4 py-2 text-left text-xs  text-gray-500 uppercase">
                   Action
                 </th>
               </tr>
@@ -110,10 +111,10 @@ export default function OrdersPage() {
                 );
 
                 return (
-                  <tr key={order.id} className="hover:bg-gray-50">
-                    <td className="px-4 py-2">{order.id}</td>
-                    <td className="px-4 py-2">{order.user?.name || "Guest"}</td>
-                    <td className="px-4 py-2">
+                  <tr key={order.id} className="hover:bg-gray-50 text-xs md:text-sm font-normal">
+              <td className="px-2 sm:px-4 py-2 break-all sm:break-normal text-xs sm:text-sm">{order.id}</td>      
+              <td className=" px-1 md:px-4 py-2 hidden sm:table-cell">{order.user?.name || "Guest"}</td>
+                    <td className="px-4 py-2 hidden sm:table-cell">
                       {order.items.map((item, idx) => (
                         <div key={idx} className="flex justify-between">
                           <span>{item.product.name} x {item.quantity}</span>
@@ -121,21 +122,21 @@ export default function OrdersPage() {
                         </div>
                       ))}
                     </td>
-                    <td className="px-4 py-2 font-semibold">${total}</td>
-                    <td className="px-4 py-2">
+                    <td className=" px-1 md:px-4 py-2 ">${total}</td>
+                    <td className=" px-1 md:px-4 py-2">
                       <select
                         value={order.paymentStatus}
                         onChange={(e) =>
                           updateOrder(order.id, "paymentStatus", e.target.value)
                         }
-                        className="border px-2 py-1 rounded"
+                        className="border  px-1 md:px-2 py-1 rounded"
                       >
                         <option value="Pending">Pending</option>
                         <option value="Paid">Paid</option>
                         <option value="Failed">Failed</option>
                       </select>
                     </td>
-                    <td className="px-4 py-2">
+                    <td className=" px-1 md:px-4 py-2">
                       <select
                         value={order.dailybariStatus}
                         onChange={(e) =>
@@ -148,14 +149,20 @@ export default function OrdersPage() {
                         <option value="Delivered">Delivered</option>
                       </select>
                     </td>
-                    <td className="px-4 py-2">
-                      <button
-                        onClick={() => deleteOrder(order.id)}
-                        className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600"
-                      >
-                        Cancel
-                      </button>
-                    </td>
+                    <td className="px-1 md:px-4 py-2">
+  <button
+    onClick={() => deleteOrder(order.id)}
+    className={`px-3 py-1 rounded text-white ${
+      order.paymentStatus === "Paid" || order.dailybariStatus === "Delivered"
+        ? "bg-gray-400 cursor-not-allowed"
+        : "bg-red-500 hover:bg-red-600"
+    }`}
+    disabled={order.paymentStatus === "Paid" || order.dailybariStatus === "Delivered"}
+  >
+    Cancel
+  </button>
+</td>
+
                   </tr>
                 );
               })}

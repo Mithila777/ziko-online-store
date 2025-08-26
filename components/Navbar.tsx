@@ -139,7 +139,7 @@ const categories = [
           >
             {/* Icon only visible on desktop */}
             <FaBars className=" mr-2" />
-            <span className="text-xs md:text-md">ALL CATEGORIES</span>
+            <span className="text-xs md:text-sm">ALL CATEGORIES</span>
           </button>
 
           <AnimatePresence>

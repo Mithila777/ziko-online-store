@@ -20,7 +20,7 @@ export default function CartIcon() {
 
   return (
     <div className="relative flex items-center">
-      <FaShoppingCart className="text-xl" />
+      <FaShoppingCart className="text-xl hover:text-blue-600" />
       {totalQuantity > 0 && (
         <span className="absolute -top-2 -right-2 bg-red-600 text-white text-xs font-bold px-2 py-0.5 rounded-full">
           {totalQuantity}

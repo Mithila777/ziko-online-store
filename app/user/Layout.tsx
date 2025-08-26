@@ -39,7 +39,7 @@ export default function UserLayout({ children }: { children: React.ReactNode }) 
 
       {/* Sidebar */}
       <aside
-        className={`fixed lg:static top-0 left-0 h-screen bg-white shadow-md z-60 flex flex-col justify-between transition-all duration-300
+        className={`fixed lg:static top-0 left-0 h-auto bg-white shadow-md z-60 flex flex-col justify-between transition-all duration-300
           ${isCollapsed ? "w-16" : "w-64"}
           ${isOpen ? "translate-x-0" : "-translate-x-full"} 
           lg:translate-x-0`}
@@ -85,14 +85,11 @@ export default function UserLayout({ children }: { children: React.ReactNode }) 
                 {!isCollapsed && <span>{link.label}</span>}
               </Link>
             ))}
-          </nav>
-        </div>
-
-        {/* Bottom Logout Button */}
-        <div className="p-4 border-t">
+             {/* Bottom Logout Button */}
+        <div className="p-4 ">
           <button
             onClick={handleLogout}
-            className={`w-full flex items-center justify-center gap-2  text-gray-600 py-2 rounded-md hover:text-red-500 transition ${
+            className={`w-full flex items-center  gap-2  text-gray-600 py-2 rounded-md hover:text-red-500 transition ${
               isCollapsed ? "text-xs px-1 justify-center" : ""
             }`}
           >
@@ -100,6 +97,10 @@ export default function UserLayout({ children }: { children: React.ReactNode }) 
             {!isCollapsed && <span>Logout</span>}
           </button>
         </div>
+          </nav>
+        </div>
+
+       
       </aside>
 
       {/* Main content */}
@@ -121,7 +122,7 @@ export default function UserLayout({ children }: { children: React.ReactNode }) 
           </button>
         </header>
 
-        <main className="flex-1 p-6">{children}</main>
+        <main className="flex-1 p-3 md:p-6">{children}</main>
       </div>
     </div>
   );

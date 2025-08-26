@@ -18,7 +18,6 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     { label: "Dashboard", href: "/admin/", icon: <FaTachometerAlt /> },
     { label: "Profile", href: "/admin/profile", icon: <FaUser /> },
     { label: "Products", href: "/admin/products", icon: <FaBoxOpen /> },
-    { label: "Add Product", href: "/admin/products/add", icon: <FaPlus /> },
     { label: "Orders", href: "/admin/orders", icon: <FaShoppingCart /> },
     { label: "Blogs", href: "/admin/blogs", icon: <FaBlog /> },
     { label: "Messeges", href: "/admin/messeges", icon: <FaMessage /> },
@@ -43,7 +42,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 
       {/* Sidebar */}
       <aside
-        className={`fixed lg:static top-0 left-0 h-screen bg-white shadow-md z-60 flex flex-col justify-between transition-all duration-300
+        className={`fixed lg:static top-0 left-0 h-auto bg-white shadow-md z-60 flex flex-col justify-between transition-all duration-300
           ${isCollapsed ? "w-16" : "w-64"}
           ${isOpen ? "translate-x-0" : "-translate-x-full"} 
           lg:translate-x-0`}
@@ -82,31 +81,30 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                 key={link.href}
                 href={link.href}
                 className={`flex items-center gap-3 px-4 py-2  transition 
-                  ${pathname === link.href ? " text-white bg-blue-800 font-medium" : "text-gray-600 hover:bg-blue-800 hover:text-white"}`}
+                  ${pathname === link.href ? " text-blue-800  font-medium" : "text-gray-600 hover:bg-blue-800 hover:text-white"}`}
                 onClick={() => setIsOpen(false)}
               >
                 <span className="text-lg">{link.icon}</span>
                 {!isCollapsed && <span>{link.label}</span>}
               </Link>
             ))}
-          </nav>
-        </div>
-
-        {/* Bottom Logout Button */}
-        <div className="p-4 border-t">
-         <div className="p-4 border-t">
-  <button
-    onClick={handleLogout}
-    className={`w-full flex items-center justify-center gap-2 bg-red-500 text-white py-2 rounded-md hover:bg-red-600 transition ${
+              {/* Bottom Logout Button */}
+         <div className="px-4 border-t py-2">
+     <button
+       onClick={handleLogout}
+         className={`w-full flex gap-2  text-gray-600  hover:text-red-600 transition ${
       isCollapsed ? "text-xs px-1 justify-center" : ""
     }`}>  
     
-    <FiLogOut className="text-lg" />
+    <FiLogOut className="text-lg " />
     {!isCollapsed && <span>Logout</span>}
   </button>
        </div>
 
+          </nav>
         </div>
+
+      
       </aside>
 
       {/* Main content */}

@@ -25,12 +25,21 @@ function Footer() {
     {/* Customer Service */}
     <div>
       <h3 className="text-lg font-semibold text-white mb-3">Customer Service</h3>
-      <ul className="space-y-2 text-sm">
-        <li><a href="#" className="hover:text-yellow-400">FAQ</a></li>
-        <li><a href="#" className="hover:text-yellow-400">Shipping & Returns</a></li>
-        <li><a href="#" className="hover:text-yellow-400">Order Tracking</a></li>
-        <li><a href="#" className="hover:text-yellow-400">Terms & Conditions</a></li>
-      </ul>
+     <ul className="space-y-2 text-sm">
+  <li>
+    <a href="/service/faq" className="hover:text-yellow-400">FAQ</a>
+  </li>
+  <li>
+    <a href="/service/returnPolicy" className="hover:text-yellow-400">Shipping & Returns</a>
+  </li>
+  <li>
+    <a href="/service/privecy" className="hover:text-yellow-400">Privacy Policy</a>
+  </li>
+  <li>
+    <a href="/service/terms" className="hover:text-yellow-400">Terms & Conditions</a>
+  </li>
+</ul>
+
     </div>
 
     {/* Contact & Social */}

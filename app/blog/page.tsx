@@ -44,7 +44,7 @@ export default function Blog() {
           <Link
             key={blog.id}
             href={`/blog/${blog.id}`}
-            className="bg-white shadow-md rounded-xl overflow-hidden hover:shadow-lg transition duration-300"
+            className="bg-white shadow-sm overflow-hidden hover:shadow-lg transition duration-300"
           >
             <img
               src={blog.image}

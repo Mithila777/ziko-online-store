@@ -1,5 +1,5 @@
 import { getServerSession } from "next-auth";
-import { authOptions } from "@/lib/auth";  // ✅ import from lib/auth
+import { authOptions } from "@/lib/auth";
 import prisma from "@/lib/prisma";
 
 export async function GET() {
@@ -35,8 +35,11 @@ export async function GET() {
         id: item.product.id,
         name: item.product.name,
         price: item.product.price,
-        // ✅ Prepend / to match public folder path
-        image: item.product.image ? `/${item.product.image}` : null,
+        image: item.product.image
+          ? item.product.image.startsWith("/image")
+            ? item.product.image
+            : `/image/${item.product.image}`
+          : "/image/no-image.png", // fallback
       },
     })),
   }));

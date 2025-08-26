@@ -59,7 +59,7 @@ export default function FeaturedSection() {
       </div>
 
       {/* Product cards */}
-      <div className=" p-2 md:p-6 grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className=" p-2 md:p-6 grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-2 md:gap-6">
         {latestProducts.map((product) => (
           <ProductCard key={product.id} product={product} />
         ))}
